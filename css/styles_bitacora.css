@@ -1,0 +1,48 @@
+/*Aplicar fuente a la bitácora*/
+#bitacora {
+    display: flex;
+    margin: 10px auto;
+    width: 90%;
+    flex-direction: column;
+    border: 2px solid var(--color_ter);
+    border-radius: 12px;
+    height: 70vh;
+    overflow: auto;
+}
+#bitacora .cambio h2, #bitacora .cambio ul li {
+    font-size: 0.8em;
+    font-family: 'Google Sans Code';
+    padding: 0 10px;
+    color: var(--texto_gris);
+}
+.cambio {
+    padding: 10px 0;
+    width: 100%;
+}
+.cambio:nth-child(even){
+    background-color: var(--crema);
+}
+.cambio:nth-child(odd){
+    background-color: var(--cornsilk);
+}
+.cambio:first-child {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+.cambio:last-child{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+.ul {
+    list-style: none;
+}
+.version {
+    font-weight: bold;
+}
+.fecha {
+    font-weight: 100;
+    font-style: italic;
+}
+.li::before{
+    content: "-";
+}
