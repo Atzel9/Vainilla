@@ -1,9 +1,10 @@
 .div-buscar {
-    margin: 20px auto;
+    margin-left: auto;
+    margin-right: 0;
     display: flex;
     align-items: center;
     height: 35px;
-    width: 90%;
+    width: 95%;
     background-color: var(--cornsilk);
     border-radius: 25px;
     box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
@@ -67,9 +68,21 @@
     object-fit: cover;
 }
 .card .texto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40%;
     text-align: left;
     padding: 5px 10px;
 }
 .card .texto h3 {
     font-family: var(--alegraya);
+}
+.card .texto div .star {
+    color: var(--color_sec);
+}
+@media screen and (min-width:410px) {
+    .div-buscar {
+        width: 370px;
+    }
 }
