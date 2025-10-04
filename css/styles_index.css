@@ -1,0 +1,75 @@
+.div-buscar {
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    width: 90%;
+    background-color: var(--cornsilk);
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
+    cursor: text;
+}
+.div-buscar div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 15px;
+    color: var(--gris);
+}
+#main {
+    padding: 10px;
+}
+.section  {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow: auto;
+    border-radius: 10px;
+}
+.section h2 {
+    width: 100%;
+    margin-bottom: 0.4em;
+    margin-top: 1em;
+}
+.ul-recetas {
+    display: flex;
+    overflow-x: auto;
+    gap: 1em;
+}
+.card {
+    height: 40vh;
+    margin: 10px 0;
+    overflow: hidden;
+    list-style: none;
+    border-radius: 10px;
+    border: 1px solid var(--color_pri);
+    min-width: 200px;
+    /*Sombra a la tarjeta*/
+    box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -webkit-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -moz-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+}
+.card .img {
+    height: 60%;
+    position: relative;
+    overflow: hidden;
+}
+.card .img img {
+    /*Para posicionar las imagenes en el centro*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+.card .texto {
+    text-align: left;
+    padding: 5px 10px;
+}
+.card .texto h3 {
+    font-family: var(--alegraya);
+}

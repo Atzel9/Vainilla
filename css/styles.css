@@ -12,13 +12,16 @@
     --gris: #847A58;
 
     --texto_gris: #252525;
+
+    --alegraya: 'Alegreya', 'Times New Roman', Times, serif;
+    --lato: 'Lato', sans-serif;
 }
 
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Lato', sans-serif; /*Aplicar la fuente en toda la pagina*/
+    font-family: var(--lato); /*Aplicar la fuente en toda la pagina*/
 }
 
 body {
@@ -27,6 +30,9 @@ body {
 a {
     text-decoration: none;
     color: inherit;
+}
+footer {
+    margin-bottom: 60px;
 }
 /*INICIO ESTILO A HEADER*/
 #header {
@@ -42,7 +48,6 @@ a {
 .div-inicio {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -75,19 +80,52 @@ a {
     gap: 20px;
 }
 .buscar {
-    display: block;
+    display: none; /*No se muestran en el header si es pantalla pequeña*/
     background-color: var(--fondo);
     padding: 10px 11px;
     border-radius: 100%;
 }
 .iniciar-sesion {
-    display: block;
+    display: none; /*No se muestran en el header si es pantalla pequeña*/
     background-color: var(--color_ter);
     padding:12px;
     border-radius: 10px;
     font-weight: 500;
 }
 /*FIN ESTILO A HEADER*/
+/*INICIO ESTILO A NAVEGADOR MOVIL*/
+#nav-movil {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    z-index: 1001;
+    background-color: var(--cafe);
+}
+.ul-nav-movil {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 10px auto;
+}
+.ul-nav-movil a {
+    font-size: 1.5em;
+    color: var(--crema);
+}
+.li-nav-movil {
+    padding: 7px 9px;
+}
+.nav-movil-activo {
+    border-radius: 50%;
+    background-color: var(--crema);
+}
+.nav-movil-activo a {
+    color: var(--cafe);
+}
+/*FIN ESTILO A NAVEGADOR MOVIL*/
 /*INICIO ESTILO A FOOTER*/
 .footer {
     margin-top: 30px;
@@ -185,5 +223,16 @@ a {
     }
     .ul-extras {
         margin: 2em auto;
+    }
+}
+@media screen and (min-width: 768px) {
+    #nav-movil {
+        display: none;
+    }
+    footer {
+        margin-bottom: 0;
+    }
+    .iniciar-sesion, .buscar {
+        display: block;
     }
 }
