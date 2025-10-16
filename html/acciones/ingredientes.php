@@ -27,11 +27,49 @@ if (!isset($_SESSION["usuario_id"])) {
     $stmt->close();
 }
 
-$id = $_GET["id"] ?? "";
+$id = $_GET["id"] ?? 0;
 
 /* Si no tiene datos la página redirecciona a la página error */
-if ($id == "") {
+if ($id == 0) {
     header("Location: ../includes/error.php?error=datos");
+}
+/* Metodo para actualizar/eliminar el ingrediente */
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nom_ing = $_POST["nombre"];
+
+    /* Metodo para editar el ingrediente */
+    if (isset($_POST['Editar'])) {
+        /* Primero se verifica que el nombre no sea igual a otro ingrediente ya existente pero con otra id */
+        $sql_ver = "SELECT nombre FROM ingredientes WHERE nombre=? AND id!=?";
+        /* $sentencia_ver = sentencia verificar */
+        $sentencia_ver = $conexion->prepare($sql_ver);
+        $sentencia_ver->bind_param("si", $nom_ing, $id);
+        $sentencia_ver->execute();
+        $resultado_ver = $sentencia_ver->get_result();
+
+        if($resultado_ver->num_rows > 0) {
+            $mensaje = "Este ingrediente ya existe";
+        } else {
+            /* Si no existe dicho ingrediente con diferente id, entonces se actualiza el nombre del ingrediente */
+            $sql_edit = "UPDATE ingredientes SET nombre=? WHERE id=?";
+            /* $sentencia_up = sentencia update(actualizar) */
+            $sentencia_up = $conexion->prepare($sql_edit);
+            if (!$sentencia_up) {
+                $mensaje = "Error al preparar la actualización " . $conexion->error;
+            } else {
+                $sentencia_up->bind_param("si", $nom_ing, $id);
+                if ($sentencia_up->execute()) {
+                    $mensaje = "Ingrediente editado con exito!";
+                } else {
+                    $mensaje = "Error al actualizar los datos" . $conexion->error;
+                }
+                $sentencia_up->close();
+            }
+        }
+        $sentencia_ver->close();
+    } elseif (isset($_POST['Eliminar'])) {
+
+    }
 }
 /* Seleccionar datos del ingrediente seleccionado */
 $ingrediente = "SELECT nombre, id FROM ingredientes WHERE id=?";
@@ -41,27 +79,6 @@ $sentencia->execute();
 
 $resultado = $sentencia->get_result();
 $nom_ing = $resultado->fetch_assoc();
-
-
-/* Metodo para actualizar/eliminar el ingrediente */
-if($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nom_ing = $_POST["nombre"];
-
-    /* Primero se verifica que el nombre no sea igual a otro ingrediente ya existente pero con otra id */
-    $sql_ver = "SELECT nombre FROM ingredientes WHERE nombre=? AND !=?";
-    $sentencia_ver = $conexion->prepare($sql_ver);
-    $sentencia_ver->bind_param("si", $nom_ing, $id);
-    $sentencia_ver->execute();
-    $resultado_ver = $sentencia_ver->get_result();
-
-    if($resultado_ver->num_rows > 0) {
-        $mensaje = "Este ingrediente ya existe";
-    } else {
-        /* Si no existe, entonces se actualiza el nombre del ingrediente */
-        $sql_edit = "UPDATE ingredientes SET nombre=? WHERE id=?";
-    }
-    $sentencia_ver->close();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
