@@ -4,7 +4,7 @@ require_once "../conexion.php";
 $mensaje = "";
 
 if (!isset($_SESSION["usuario_id"])) {
-    header("Location: includes/iniciar_sesion.php");
+    header("Location: iniciar_sesion.php");
     exit;
 } else {
     $id = $_SESSION['usuario_id'] ?? null;

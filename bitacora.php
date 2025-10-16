@@ -39,7 +39,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <section class="section">
         <div id="bitacora">
             <div class="cambio">
-                <h2 class="version">v 1.0.0</h2>
+                <h2 class="version">v 0.1.0</h2>
                 <h2 class="fecha">02/10/25</h2>
                 <ul class="ul">
                     <li class="li">📄Se creo la página index.</li>
@@ -50,20 +50,30 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                 </ul>
             </div>
             <div class="cambio">
-                <h2 class="version">v 1.0.1</h2>
+                <h2 class="version">v 0.1.1</h2>
                 <h2 class="fecha">03/10/25</h2>
                 <ul class="ul">
                     <li class="li">📱El footer y header se hicieron responsivos.</li>
                 </ul>
             </div>
             <div class="cambio">
-                <h2 class="version">v 1.1.0</h2>
+                <h2 class="version">v 0.1.2</h2>
                 <h2 class="fecha">04/10/25</h2>
                 <ul class="ul">
                     <li class="li">🔎Se agrego la barra de busqueda en el index.</li>
                     <li class="li">🚧Se agregaron tarjetas divisoras en el index. Están en pruba y solo es para dar un vistazo de como será al final.</li>
                     <li class="li">📱La barra de navegación se cambio para las pantallas pequeñas. Ahora estarán abajo para una mejor experiencia de usuario.</li>
                     <li class="li">📝Pequeños correciones de errores ortógraficos.</li>
+                </ul>
+            </div>
+            <div class="cambios">
+                <h2 class="version">v.1.0.0</h2>
+                <h2>05/10/25-15/10/25</h2>
+                <ul class="ul">
+                    <li class="li">🗄️Creación de base de datos.</li>
+                    <li class="li">👤Gracias a la implementación de base de datos, ahora se pueden crear cuentas. Estas de manera predeterminada tendrán el rol de &quot;user&quot;, usuario en ingles. Gracias a esto en un futuro se podran crear recetas, calificar y comentar.</li>
+                    <li class="li">🎛️Panel de administrador: Los usuarios con cuenta de administrador ahora tienen acceso a la sección de &quot;Panel de administración&quot;, esta podrá agregar ingredientes, ver las recetas que estan en lista de espera para que puedan ser aceptadas, y ver el esatdo de los usuarios.</li>
+                    <li class="li">📝Se agrego un archivo .txt para mostrar el plan de desarrollo de la página.</li>
                 </ul>
             </div>
         </div>
