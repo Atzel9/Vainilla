@@ -1,0 +1,72 @@
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px auto;
+    max-height: 80vh;
+    width: 95%;
+    border: 1px solid var(--texto_gris);
+}
+.main h2 {
+    width: 100%;
+}
+.main .btns-accion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 20%;
+}
+.main .div .div-datos {
+    height: 50vh;
+    width: 95%;
+    overflow: auto;
+}
+.main .h3_ing {
+    width: 100%;
+}
+.div {
+    display: none;
+    flex-wrap: wrap;
+}
+.div h3 {
+    width: 100%;
+}
+.btn {
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+.btn-activo {
+    background-color: var(--cafe);
+    color: var(--cornsilk);
+}
+
+.div-activo {
+    display: flex;
+    margin: 30px;
+}
+.div-crear {
+    margin: 10px 0;
+    width: 100%;
+}
+
+/*ESTILOS A TABLAS*/
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: auto;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}

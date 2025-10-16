@@ -1,3 +1,8 @@
+<?php
+require_once "conexion.php";
+
+$nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,22 +34,7 @@
 </head>
 <body>
     <!--Inicio del header-->
-    <header id="header">
-        <a href="index.html" class="inicio">
-            <div class="div-inicio">
-                <div class="icon"><img src="img/icono.png" alt="Icono de Vainilla"></div>
-                <div class="div-titulo"><p class="titulo">Vainilla <br> "Lo dulce de la tradición"</p></div>
-            </div>
-            <div class="navegacion">
-                <nav class="nav">
-                    <ul>
-                        <li><a href="#" class="buscar"><i class="bi bi-search"></i></a></li>
-                        <li><a href="#" class="iniciar-sesion">Iniciar sesion</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </a>
-    </header>
+    <?php require_once "html/includes/header.php" ?>
     <!--Fin del header-->
     <section class="section">
         <div id="bitacora">
@@ -79,48 +69,8 @@
         </div>
     </section>
     <!--Inicio Footer-->
-    <footer class="footer">
-        <div class="footer-postres">
-            <ul class="ul-postres">
-                <li class="lista-postres">Postres horneados</li>
-                <li class="lista-postres">Postres fríos</li>
-                <li class="lista-postres">Postres helados</li>
-                <li class="lista-postres">Postres de cuchara</li>
-                <li class="lista-postres">Postres fritos</li>
-                <li class="lista-postres">Respotería con frutas</li>
-                <li class="lista-postres">Respotería con masa y hojaldre</li>
-                <li class="lista-postres">Dulces y confitería</li>
-            </ul>
-        </div>
-        <div class="footer-redes">
-            <hr class="footer-hr">
-            <h3 class="redes-titulo">Visita nuestras redes</h3>
-            <ul class="ul-redes">
-                <li class="lista-redes"><a href="#"><i class="bi bi-instagram"></i></a></li>
-                <li class="lista-redes"><a href="#"></a><i class="bi bi-facebook"></i></li>
-                <li class="lista-redes"><a href="#"><i class="bi bi-pinterest"></i></a></li>
-            </ul>
-            <hr class="footer-hr">
-        </div>
-        <div class="extras">
-            <ul class="ul-extras">
-                <li class="lista-texto"><a href="#">Política de privacidad</a></li>
-                <li>&bull;</li>
-                <li class="lista-texto"><a href="#">Terminos y condiciones</a></li>
-                <li>&bull;</li>
-                <li class="lista-texto"><a href="#">Contáctanos</a></li>
-                <li>&bull;</li>
-                <li class="lista-texto"><a href="bitacora.html">Bitácora</a></li>
-            </ul>
-        </div>
-    </footer>
+    <?php require_once "html/includes/footer.php" ?>
     <!--Fin Footer-->
-    <nav id="nav-movil">
-        <ul class="ul-nav-movil">
-            <li class="li-nav-movil inicio-movil nav-movil-activo"><a href="#"><i class="ph ph-house"></i></a></li>
-            <li class="li-nav-movil"><a href="#" class="buscar-movil"><i class="ph ph-magnifying-glass"></i></a></li>
-            <li class="li-nav-movil"><a href="#" class="perfil-movil"><i class="ph ph-user"></i></a></li>
-        </ul>
-    </nav>
+    <?php require_once "html/includes/nav-mobil.php" ?>
 </body>
 </html>

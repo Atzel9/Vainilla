@@ -1,0 +1,25 @@
+.info-perfil {
+    display: flex;
+    margin: 10px auto;
+    flex-direction: column;
+    width: 95%;
+    border: 2px solid var(--color_pri);
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -webkit-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -moz-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+}
+.info-perfil h1 {
+    font-size: 1.2em;
+}
+.hr {
+    display: flex;
+    width: 95%;
+    margin: 10px auto;
+    border-radius: 2px;
+    border: 2px solid var(--color_pri);
+}
+.nav {
+    font-size: 0.9em;
+}

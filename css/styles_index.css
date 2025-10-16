@@ -81,6 +81,14 @@
 .card .texto div .star {
     color: var(--color_sec);
 }
+.nav-movil-activo {
+    border-radius: 50%;
+    background-color: var(--crema);
+}
+.nav-movil-activo a {
+    color: var(--cafe);
+}
+/*INICIO RESPONSIVO*/
 @media screen and (min-width:410px) {
     .div-buscar {
         width: 370px;
