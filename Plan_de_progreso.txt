@@ -1,0 +1,208 @@
+---
+
+Plan semanal (6 semanas hasta la entrega)
+
+Semana 1 — Base: ingredientes (CRUD) — 20/10 − 26/10
+
+Objetivo: Tener CRUD de ingredientes completo y estable (crear, leer, editar, borrar) + normalización de nombres.
+
+Tareas principales:
+
+Crear/confirmar tabla ingredientes y colación (utf8mb4_unicode_ci).
+
+Formularios: agregar ingrediente (normalizar: mb_strtolower + quitar tildes), validar, evitar duplicados (SELECT ... WHERE nombre = ?).
+
+Editar ingrediente con verificación AND id != ?.
+
+Eliminar ingrediente con confirmación (POST + botón).
+
+Poner páginas lista_ingredientes.php, ingrediente_form.php.
+
+
+Entregable semana: lista_ingredientes.php funcionando, tests locales con 10 ingredientes de prueba.
+
+Tareas para los compañeros (novatos):
+
+Rellenar una hoja de Google/CSV con 30 ingredientes de prueba.
+
+Revisar ortografía de ingredientes.
+
+
+Criterio de aceptación: crear/editar/eliminar funciona sin warnings y sin duplicados (normalizados).
+
+
+
+---
+
+Semana 2 — Recetas: esquema + creación básica — 27/10 − 02/11
+
+Objetivo: Estructura de recetas, formulario de crear receta (sin aún procesar ingredientes complejos), guardado en BD.
+
+Tareas principales:
+
+Crear tabla recetas con: id, user_id, titulo, instrucciones TEXT, tiempo_preparacion INT, imagen VARCHAR(255), estado ENUM('pendiente','aprobada') DEFAULT 'pendiente', creado_en TIMESTAMP, fecha_revision, id_admin.
+
+Formulario crear_receta.php: título, instrucciones (textarea), tiempo (minutos), selección múltiple simple de ingredientes (select multiple) o checkboxes (desde tabla ingredientes).
+
+Guardar receta en BD: crear registro en recetas, luego guardar relaciones en tabla puente receta_ingrediente.
+
+Para imágenes: almacenar ruta en imagen (no blob). Subir archivo a img/recetas/ (opcional si están muy cansados, pueden dejar campo texto temporal).
+
+
+Entregable semana: subir receta (usuario) crea entrada en BD y relaciones con ingredientes.
+
+Tareas para los compañeros:
+
+Rellenar 10 recetas (en un Google Form/Sheet o en el formulario si están en la misma red).
+
+
+Criterio de aceptación: al crear receta la tabla recetas y receta_ingrediente se llenan correctamente.
+
+
+
+---
+
+Semana 3 — Aprobación admin / Panel admin — 03/11 − 09/11
+
+Objetivo: Panel para admins: ver recetas pendiente, aprobar/rechazar, listar usuarios.
+
+Tareas principales:
+
+admin_recetas.php: listar recetas con estado='pendiente' con botones Aprobar y Rechazar.
+
+Al aprobar: UPDATE recetas SET estado='aprobada', fecha_revision=NOW(), id_admin=?.
+
+admin_usuarios.php: lista de usuarios con count de recetas, botón ver recetas.
+
+Proteger rutas: if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') header(...?error=rol);
+
+
+Entregable semana: admin puede aprobar/rechazar y ver usuarios.
+
+Tareas para los compañeros:
+
+Uno puede encargarse de probar el flujo y reportar bugs; otro puede escribir mini-informes de prueba (qué pasó cuando aprobaron X receta).
+
+
+Criterio de aceptación: solo admins ven el panel; aprobar hace que la receta sea visible públicamente.
+
+
+
+---
+
+Semana 4 — Mostrar recetas públicamente + filtros básicos — 10/11 − 16/11
+
+Objetivo: Listado público de recetas aprobadas, vista detalle por receta (URL con ?id=), búsqueda por ingrediente.
+
+Tareas principales:
+
+recetas.php: SELECT * FROM recetas WHERE estado='aprobada' ORDER BY creado_en DESC.
+
+receta.php?id=NN: muestra título, instrucciones, ingredientes (JOIN con tabla puente) y tiempo formateado.
+
+search.php?ingredient=azucar → buscar recetas que incluyan ese ingrediente (JOIN).
+
+Manejo de errores: si id no existe → redirigir a error.php?error=usuario o error=receta.
+
+
+Entregable semana: búsqueda y detalle funcionando, enlaces entre listados y detalle.
+
+Tareas para compañeros:
+
+Testear varias búsquedas y verificar que las recetas mostradas coinciden con los ingredientes.
+
+
+Criterio de aceptación: solo recetas aprobadas aparecen; link detalle genera página dinámica.
+
+
+
+---
+
+Semana 5 — Perfil y acciones del usuario — 17/11 − 23/11
+
+Objetivo: Perfil del usuario: ver recetas propias, marcar favoritas, “hacer más tarde” (privado).
+
+Tareas principales:
+
+perfil.php: mostrar mis recetas (SELECT WHERE user_id = $_SESSION['usuario_id']).
+
+Tabla favoritos y hacer_mas_tarde (o una tabla acciones_usuario con tipo).
+
+Botones: Añadir/Eliminar favorito, Añadir a Hacer más tarde (API simple POST que modifica tablas).
+
+Interfaz: en el detalle de receta se ve botón favorito / hacer más tarde.
+
+
+Entregable semana: perfil con lista propias, favoritos y "hacer más tarde" básico.
+
+Tareas para compañeros:
+
+Probar añadir/remover favoritos y crear recetas desde cuenta propia.
+
+
+Criterio de aceptación: acciones per-user funcionan (guardadas en BD); listas en perfil se muestran correctamente.
+
+
+
+---
+
+Semana 6 — Comentarios, calificaciones y pulido final — 24/11 − 30/11
+
+Objetivo: Añadir valoración (estrellas) y comentarios (si da tiempo), y preparar pulido final + pruebas.
+
+Tareas principales:
+
+valoraciones tabla: id, receta_id, user_id, puntuacion INT(1-5), comentario TEXT, creado_en.
+
+En receta.php permitir dejar calificación y comentario si usuario ha iniciado sesión.
+
+Mostrar media de puntuaciones y contar comentarios.
+
+Pruebas integrales, arreglar bugs, preparar database.sql con esquema y datos ejemplo.
+
+Documentación mínima: README con cómo ejecutar en XAMPP + pasos para importar database.sql.
+
+Último día: CSS básico (header/footer consistente) y demo.
+
+
+Entregable semana: features principales integradas, database.sql, README, demo local.
+
+Criterio de aceptación: demo funcional con casos de prueba; el profesor puede abrir y ver login, crear receta, aprobar (admin), ver receta en público.
+
+
+
+---
+
+Asignación de tareas para tus 2 compañeros (novatos)
+
+Dales tareas concretas y no técnicas:
+
+Compañero A (contenido): Llenar Google Sheet con: 30 ingredientes + 20 recetas (título, instrucciones, tiempo, ingredientes seleccionados). También subir imágenes si hay.
+
+Compañero B (UI básico): Ajustar CSS mínimo (cambios de color, fuentes) en includes/nav.php y footer.php, y revisar ortografía en textos.
+
+Tú (backend + puntos difíciles): login, roles, CRUD ingredientes, CRUD recetas, panel admin, perfil, integraciones.
+
+
+Esto te permite marcar avances por miembro (lo que pide el profe).
+
+
+---
+
+Checklist semanal (para marcar antes de pasar a la siguiente)
+
+[ ] Funcionalidad principal (C/R/U/D) probada.
+
+[ ] 5 casos de prueba manuales OK (crear, editar, borrar, iniciar sesión, buscar).
+
+[ ] database.sql exportado con esquema + datos de ejemplo.
+
+[ ] 1 vídeo/zip o screenshots de avance listos para entregar al profe.
+
+[ ] Commit en Git con mensaje claro.
+
+
+Haz commits pequeños y frecuentes: git add . && git commit -m "Ingredientes: add edit delete and validation".
+
+
+---
