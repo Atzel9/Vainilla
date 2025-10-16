@@ -66,9 +66,9 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                     <li class="li">📝Pequeños correciones de errores ortógraficos.</li>
                 </ul>
             </div>
-            <div class="cambios">
+            <div class="cambio">
                 <h2 class="version">v.1.0.0</h2>
-                <h2>05/10/25-15/10/25</h2>
+                <h2 class="fecha">05/10/25 - 15/10/25</h2>
                 <ul class="ul">
                     <li class="li">🗄️Creación de base de datos.</li>
                     <li class="li">👤Gracias a la implementación de base de datos, ahora se pueden crear cuentas. Estas de manera predeterminada tendrán el rol de &quot;user&quot;, usuario en ingles. Gracias a esto en un futuro se podran crear recetas, calificar y comentar.</li>
