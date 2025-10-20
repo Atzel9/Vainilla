@@ -68,7 +68,37 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         }
         $sentencia_ver->close();
     } elseif (isset($_POST['Eliminar'])) {
+        /* Metodo para eliminar el ingrediente */
 
+        $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+        if ($id <= 0) {
+            die("ID inválido.");
+        }
+        //Primero se verifica que exista el ingrediente.
+        $sql_sel = "SELECT id FROM ingredientes WHERE id = ?";
+        $sentencia_sel = $conexion->prepare($sql_sel);
+        if(!$sentencia_sel) {die("Error al preparar la consulta." . $conexion->error);}
+        $sentencia_sel->bind_param("i", $id);
+        $sentencia_sel->execute();
+        $resultado_sel = $sentencia_sel->get_result();
+        if(!$resultado_sel || $resultado_sel->num_rows != 1) {die("Ingrediente no encontrado.");}
+        $sentencia_sel->close();
+        //Si se encuentra el ingrediente se ejecuta ahora el método de eliminar
+        $sql_del = "DELETE FROM ingredientes WHERE id=?";
+        $sentencia_del = $conexion->prepare($sql_del);
+        if(!$sentencia_del) {die("Error al preparar la eliminación: " . $conexion->error);}
+        $sentencia_del->bind_param("i", $id);
+
+        if ($sentencia_del->execute()) {
+            //Si se ejecuta se elimina
+            $sentencia_del->close();
+            header("Location: ../admin.php");
+            exit;
+        } else {
+            //Si no muestra el error
+            $sentencia_del->close();
+            die("Error al eliminar: " . $conexion->error);
+        }
     }
 }
 /* Seleccionar datos del ingrediente seleccionado */
@@ -78,7 +108,11 @@ $sentencia->bind_param("i", $id);
 $sentencia->execute();
 
 $resultado = $sentencia->get_result();
-$nom_ing = $resultado->fetch_assoc();
+if($resultado->num_rows != 1) {
+    header("Location: ../includes/error.php?error=datos");
+} else {
+    $nom_ing = $resultado->fetch_assoc();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
