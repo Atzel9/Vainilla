@@ -79,5 +79,9 @@ iptBus.addEventListener("input", function(){
                 lista.style.display = "none";
             }
         });
+    } else {
+        lista.forEach((lista) => {
+            lista.style.display = "";
+        });
     }
 })
