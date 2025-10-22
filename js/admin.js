@@ -45,3 +45,39 @@ btnUsu.addEventListener('click', () => {
     btnIng.classList.remove('btn-activo');
     ingrediente.classList.remove('div-activo');
 });
+
+/* Código para el buscador de ingredientes */
+/* Función para eliminar acento */
+function removerAcento(cadena) {
+    cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    console.log("Se normalizo: ", cadena);
+    return cadena;
+}
+
+/* TOMAR VALOR DEL INPUT */
+const iptBus = document.getElementById('admin-buscar');
+
+/* EVENTO DE QUE CUANDO EL VALOR DEL INPUT CAMBIE ESTE SE ACTIVE */
+iptBus.addEventListener("input", function(){
+    console.log("Evento input");
+    const tablaIngrediente = document.getElementById('tabla-ingrediente');
+    const lista = tablaIngrediente.querySelectorAll("tbody tr");
+    /* Normalizar el texto */
+    let texto = iptBus.value.toLowerCase();
+    textoNormalizado = removerAcento(texto);
+
+    /* Verifica que el texto tenga texto */
+    if (textoNormalizado.trim() !== "") {
+        lista.forEach((lista) => {
+            const nombre = lista.querySelector(".nombre");
+            const textoCelda = nombre.textContent.toLowerCase();
+            let textoCeldaNorm = removerAcento(textoCelda);
+
+            if(textoCeldaNorm.includes(texto)) {
+                lista.style.display = "";
+            } else {
+                lista.style.display = "none";
+            }
+        });
+    }
+})

@@ -146,13 +146,16 @@ if (!isset($_SESSION["usuario_id"])) {
                         <input id="form-ingrediente" type="text" name="ingrediente" required>
                         <input type="submit" id="form-subir-ingrediente">
                     </form>
+                    <div class="div-admin-bus">
+                            <input type="text" id="admin-buscar" placeholder="Buscar ingrediente...">
+                    </div>
                     <?php if($mensaje !== ""): ?>
                         <p><?=htmlspecialchars($mensaje)?></p>
                     <?php endif; ?>
                 </div>
                 <div class="div-datos">
                     <?php if($sql_ingredientes && $sql_ingredientes->num_rows > 0):?>
-                        <table class="table">
+                        <table id="tabla-ingrediente" class="table">
                         <thead class="thead">
                             <tr>
                                 <th>ID</th>
@@ -164,7 +167,7 @@ if (!isset($_SESSION["usuario_id"])) {
                             <?php while ($fila_ing = $sql_ingredientes->fetch_assoc()):?>
                                 <tr>
                                 <td><?= (int)$fila_ing["id"]?></td>
-                                <td><?= htmlspecialchars($fila_ing["nombre"])?></td>
+                                <td class="nombre"><?= htmlspecialchars($fila_ing["nombre"])?></td>
                                 <td><a href="acciones/ingredientes.php?id=<?=(int)$fila_ing["id"]?>">Editar</a></td>
                                 </tr>
                             <?php endwhile; ?>

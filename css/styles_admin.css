@@ -19,7 +19,7 @@
 }
 .main .div .div-datos {
     height: 50vh;
-    width: 95%;
+    width: 100%;
     overflow: auto;
 }
 .main .h3_ing {
@@ -50,6 +50,15 @@
 .div-crear {
     margin: 10px 0;
     width: 100%;
+}
+/*ESTILO AL BUSCADOR*/
+.div-admin-bus {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0;
+}
+.div-admin-bus input {
+    width: 200px;
 }
 
 /*ESTILOS A TABLAS*/
