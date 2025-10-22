@@ -193,6 +193,7 @@ if (!isset($_SESSION["usuario_id"])) {
                                 <th>Correo</th>
                                 <th>Creado en:</th>
                                 <th>Rol</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody class="tbody">
@@ -203,6 +204,7 @@ if (!isset($_SESSION["usuario_id"])) {
                                 <td><?= htmlspecialchars($fila_usu["correo"])?></td>
                                 <td><?= htmlspecialchars($fila_usu["creado_en"])?></td>
                                 <td><?= htmlspecialchars($fila_usu["rol"])?></td>
+                                <td><a href="acciones/usuario.php?id=<?=(int)$fila_usu["id"]?>">Editar</a></td>
                                 </tr>
                             <?php endwhile; ?>
                         </tbody>
