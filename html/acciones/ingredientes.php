@@ -157,11 +157,24 @@ if($resultado->num_rows != 1) {
         <?php endif; ?>
         <form method="post">
             <input type="text" value="<?=htmlspecialchars($nom_ing['nombre'])?>" required name="nombre">
-            <input type="submit" name="Editar" value="Editar">
-            <input type="submit" name="Eliminar" value="Eliminar">
+            <input id="editar" type="submit" name="Editar" value="Editar">
+            <input id="eliminar" type="submit" name="Eliminar" value="Eliminar">
+            <input type="hidden" name="accion" id="accion">
         </form>
     </main>
+    <div id="modalDel" class="modal">
+        <div class="contenedor-modal">
+            <p>¿Quieres eliminar este ingrediente?</p>
+            <p>La acción no se podrá deshacer después</p>
+            <div class="ing-btns">
+                <button id="btnDel" class="ing-btn">Eliminar</button>
+                <button id="btnCan" class="ing-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
     <?php require_once "../includes/footer.php"; ?>
     <?php require_once "../includes/nav-mobil.php"; ?>
+
+    <script src="../../js/acciones_ing.js"></script>
 </body>
 </html>
