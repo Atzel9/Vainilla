@@ -78,9 +78,10 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
             </div>
             <div class="cambio">
                 <h2 class="version">v.1.1.0</h2>
-                <h2 class="fecha">16/10/25 - 21/20/25</h2>
+                <h2 class="fecha">16/10/25 - 24/20/25</h2>
                 <ul class="ul">
                     <li class="li">🎛️CRUD para ingredientes completados. Ya se pueden agregar, leer, editar y eliminar ingredientes. Cuenta con un sistema para cuando antes de que se agregue el ingrediente verifique que no haya existido antes. Al editar el ingrediente tambien tiene una manera de verificar que el ingrediente no exista con ese mismo nombre. Todo esto para evitar errores.</li>
+                    <li>⚠️Ventana modal agregada para evitar que se eliminen ingredientes por accidente.</li>
                     <li class="li">🔎Esta la barra de busqueda para que el admin para verificar de manera más eficiente de que ya exista el ingrediente.</li>
                 </ul>
             </div>
