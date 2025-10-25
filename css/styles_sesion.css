@@ -1,0 +1,76 @@
+.div-form {
+    display: flex;
+    margin: 15px auto;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    min-height: 60vh;
+    width: 90%;
+    padding: 8px 6px;
+    box-shadow: 0px 0px 35px 0px rgba(255,223,199,0.50) inset;
+    -webkit-box-shadow: 0px 0px 35px 0px rgba(255,223,199,0.50) inset;
+    -moz-box-shadow: 0px 0px 35px 0px rgba(255,223,199,0.50) inset;
+    border: 2px solid var(--color_pri);
+    border-radius: 16px;
+}
+.div-form .div-form-text h1, .div-form .div-form-text h2 {
+    width: 100%;
+    text-align: center;
+}
+.div-form .formulario {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.div-form .div-frame {
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    width: 90%;
+    gap: 5px;
+}
+.div-form .div-frame:first-child {
+    margin-top: 15px;
+}
+.div-form .div-frame label {
+    font-size: 1.1em;
+}
+.div-form .div-frame input {
+    transition: all 0.2s ease-in;
+    padding: 4px 8px;
+    border: 2px solid #bbbbbb;
+    border-radius: 16px;
+}
+.div-frame input[type="text"]:focus, .div-frame input[type="password"]:focus, .div-frame input[type="email"]:focus
+.div-frame input[type="text"]:focus-visible, .div-frame input[type="password"]:focus-visible, .div-frame input[type="email"]:focus-visible {
+    border: 2px solid var(--color_pri);
+    outline: none;
+    box-shadow: 0px 0px 15px 0px rgba(255,205,54,0.50);
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(255,205,54,0.50);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(255,205,54,0.50);
+    transition: all 0.2s ease-in;
+}
+.div-form .formulario .submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    padding: 8px;
+    font-size: 1.1em;
+    background-color: var(--color_pri);
+    color: var(--cornsilk);
+    margin: 5px auto;
+    width: 90%;
+    cursor: pointer;
+}
+
+/*INICIO ESTILO RESPONSIVO*/
+@media screen and (min-width:426px) {
+    .div-form {
+        width: 383px;
+    }
+}

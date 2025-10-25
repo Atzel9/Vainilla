@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="icon" type="image/x-icon" href="../img/icono.png">
     <!--Link para ingresar a los estilos-->
     <link rel="stylesheet" href="../css/styles.css?v=1.2">
-    <link rel="stylesheet" href="../css/styles_buscador.css">
+    <link rel="stylesheet" href="../css/styles_sesion.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,23 +85,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php require_once "includes/header.php"; ?>
     <!--Fin del header-->
     <main>
-    <h1>Iniciar sesión</h1>
+        <section class="div-form">
+            <div class="div-form-text">
+                <h1>Iniciar sesión</h1>
+                <h2>¡Bienvenido a la cocina!</h2>
+            </div>
 
-    <?php if ($mensaje !== ""): ?>
-        <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
-    <?php endif; ?>
+        <?php if ($mensaje !== ""): ?>
+            <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
+        <?php endif; ?>
 
-    <form method="post" action="iniciar_sesion.php" novalidate>
-        <label for="correo">Correo</label>
-        <input id="correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+            <form method="post" action="iniciar_sesion.php" novalidate class="formulario">
+                <div class="div-frame">
+                    <label for="correo">Correo</label>
+                    <input id="correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+                </div>
 
-        <label for="contrasena">Contraseña</label>
-        <input id="contrasena" name="contrasena" type="password" required minlength="6" autocomplete="current-password">
+                <div class="div-frame">
+                    <label for="contrasena">Contraseña</label>
+                    <input id="contrasena" name="contrasena" type="password" required minlength="6" autocomplete="current-password">
+                </div>
 
-        <button type="submit">Entrar</button>
-    </form>
+                <button type="submit" class="submit">Entrar</button>
+            </form>
 
-    <p>¿No tienes cuenta? <a href="registrar.php">Regístrate</a></p>
+            <p>¿No tienes cuenta? <a href="registrar.php">Regístrate</a></p>
+        </section>
     </main>
     <!--Inicio Footer-->
     <?php require_once "includes/footer.php" ?>

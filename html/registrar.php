@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="icon" type="image/x-icon" href="../img/icono.png">
     <!--Link para ingresar a los estilos-->
     <link rel="stylesheet" href="../css/styles.css?v=1.2">
-    <link rel="stylesheet" href="../css/styles_buscador.css">
+    <link rel="stylesheet" href="../css/styles_sesion.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,26 +74,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php require_once "includes/header.php"; ?>
     <!--Fin del header-->
     <main>
-        <h1>Registro de usuario</h1>
+        <section class="div-form">
+            <div class="div-form-text">
+                <h1>Registro de usuario</h1>
+                <h2>¡Adentrate a la cocina!</h2>
+            </div>
 
-    <?php if ($mensaje !== ""): ?>
-        <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
-    <?php endif; ?>
+            <?php if ($mensaje !== ""): ?>
+                <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
+            <?php endif; ?>
 
-    <form method="post" action="registrar.php" novalidate>
-        <label for="nombre">Nombre</label>
-        <input id="nombre" name="nombre" type="text" required maxlength="100" autocomplete="name">
+            <form method="post" action="registrar.php" novalidate class="formulario">
+                <div class="div-frame">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" name="nombre" type="text" required maxlength="100" autocomplete="name">
+                </div>
 
-        <label for="correo">Correo</label>
-        <input id="correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+                <div class="div-frame">
+                    <label for="correo">Correo</label>
+                    <input id="correo" name="correo" type="email" required maxlength="120" autocomplete="email">
+                </div>
 
-        <label for="contrasena">Contraseña</label>
-        <input id="contrasena" name="contrasena" type="password" required minlength="6" autocomplete="new-password">
+                <div class="div-frame">
+                    <label for="contrasena">Contraseña</label>
+                    <input id="contrasena" name="contrasena" type="password" required minlength="6" autocomplete="new-password">
+                </div>
 
-        <button type="submit">Crear cuenta</button>
-    </form>
+                <button type="submit" class="submit">Crear cuenta</button>
+            </form>
 
-    <p>¿Ya tienes cuenta? <a href="iniciar_sesion.php">Inicia sesión</a></p>
+            <p>¿Ya tienes cuenta? <a href="iniciar_sesion.php">Inicia sesión</a></p>
+        </section>
     </main>
     <!--Inicio Footer-->
     <?php require_once "includes/footer.php" ?>
