@@ -155,14 +155,14 @@ if($resultado->num_rows != 1) {
         <?php if($mensaje != ''): ?>
             <p><?=htmlspecialchars($mensaje)?></p>
         <?php endif; ?>
-        <form method="post">
+        <form method="post" id="formulario">
             <input type="text" value="<?=htmlspecialchars($nom_ing['nombre'])?>" required name="nombre">
             <input id="editar" type="submit" name="Editar" value="Editar">
             <input id="eliminar" type="submit" name="Eliminar" value="Eliminar">
-            <input type="hidden" name="accion" id="accion">
+            <input type="hidden" name="Eliminar" id="accion">
         </form>
     </main>
-    <div id="modalDel" class="modal">
+    <div id="modalDel" class="modal desactivado">
         <div class="contenedor-modal">
             <p>¿Quieres eliminar este ingrediente?</p>
             <p>La acción no se podrá deshacer después</p>
