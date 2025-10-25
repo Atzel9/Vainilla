@@ -12,7 +12,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <!--Icono de la página-->
     <link rel="icon" type="image/x-icon" href="img/icono.png">
     <!--Link para ingresar a los estilos-->
-    <link rel="stylesheet" href="css/styles.css?v=1.2">
+    <link rel="stylesheet" href="css/styles.css?v=1.3">
     <link rel="stylesheet" href="css/styles_index.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                             <div><h3>Chessecake</h3></div>
                             <div>
                                 <div><i class="bi bi-hourglass"></i>1hr</div>
-                                <div><i class="bi bi-star-fill star"></i>4.6</div>
+                                <div><i class="bi bi-star-fill star"></i>67</div>
                             </div>
                         </div>
                     </a>
@@ -235,5 +235,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <?php require_once "html/includes/footer.php"; ?> 
     <!--Fin Footer-->
     <?php require_once "html/includes/nav-mobil.php"; ?>
+    <!-- Acceso a javascript-->
+    <script src="js/app.js"></script>
 </body>
 </html>

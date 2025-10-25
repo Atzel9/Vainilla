@@ -118,5 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php require_once "includes/nav-mobil.php"; ?>
     <!--Acceder al Javascript-->
     <script type="text/Javascript"></script>
+    <!-- Acceso a javascript-->
+    <script src="../js/app.js"></script>
 </body>
 </html>

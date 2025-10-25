@@ -84,5 +84,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <?php require_once "includes/nav-mobil.php"; ?>
     <!--Acceder al Javascript-->
     <script type="text/Javascript"></script>
+    <!-- Acceso a javascript-->
+    <script src="../js/app.js"></script>
 </body>
 </html>

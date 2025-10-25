@@ -86,11 +86,22 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                     <li class="li">🖌️Sección de registro e iniciar sesión ahora tienen estilos para que tengan una mejor aspecto.</li>
                 </ul>
             </div>
+            <div class="cambio">
+                <h2 class="version">v1.2.0</h2>
+                <h2 class="fecha">25/10/2025</h2>
+                <ul class="ul">
+                    <li class="li">🚀Nueva barra de navegación para los usuarios en movil:</li>
+                    <li class="li">➕Se añadieron 2 botones en la barra de navegación para dispositivos moviles. Estas son &quot;Crear&quot; y &quot;Actividades&quot;.</li>
+                    <li class="li">⚙️Los usuarios que no hayan iniciado sesión ahora en vez de ser redirigidos a la página de registro, ahora se abrirá una ventana modal para verificar si quieren iniciar sesión/registrar o cerrar la ventana, siendo mas amigable este método.</li>
+                    <li class="li">🚧El header no se mostrará en pantallas moviles. Será reemplazada para una más adaptada proximamente. Por el momento no se mostrará.</li>
+                </ul>
+            </div>
         </div>
     </section>
     <!--Inicio Footer-->
     <?php require_once "html/includes/footer.php" ?>
     <!--Fin Footer-->
     <?php require_once "html/includes/nav-mobil.php" ?>
+    <script src="js/app.js"></script>
 </body>
 </html>
