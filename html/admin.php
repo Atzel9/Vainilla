@@ -1,103 +1,86 @@
 <?php
 require_once "../conexion.php";
 
+require_once "acciones/require_admin.php";
+
 $mensaje = "";
 
-if (!isset($_SESSION["usuario_id"])) {
-    header("Location: iniciar_sesion.php");
-    exit;
-} else {
-    $id = $_SESSION['usuario_id'] ?? null;
-    $nombre_usuario = $_SESSION['usuario_nombre'];
-    $sql = "SELECT nombre, rol FROM usuarios WHERE id=?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+if($_SERVER["REQUEST_METHOD"] === "POST") {
+    function cambiarTexto($texto) {
+        /* Convertir el string a minúscula */
+        $texto = mb_strtolower($texto, 'UTF-8');
 
-    $resultado = $stmt->get_result();
-    $usuario = $resultado->fetch_assoc();
+        /* Quitar tíldes */
+        $texto = strtr($texto, [
+            'á' => 'a', 'é' => 'e', 'í' => 'i',
+            'ó' => 'o', 'ú' => 'u', 'ü' => 'u',
+            'Á' => 'a', 'É' => 'e', 'Í' => 'i',
+            'Ó' => 'o', 'Ú' => 'u', 'Ü' => 'u'
+        ]);
 
-    if($usuario['rol'] != 'admin') {
-        header("Location: includes/error.php?error=rol");
-        exit;
+        /* Quitar cualquier espacio extra */
+        $texto = trim($texto);
+
+        return $texto;
     }
-    $stmt->close();
+    $ingrediente = $_POST["ingrediente"];
+    $ingrediente_normalizado = cambiarTexto($_POST["ingrediente"]) ;
 
-    /* Metodo para agregar ingrediente a la DB*/
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
-        function cambiarTexto($texto) {
-            /* Convertir el string a minúscula */
-            $texto = mb_strtolower($texto, 'UTF-8');
+    if($ingrediente === "") {
+        $mensaje = "Campo vacío";
+    }
+    else {
+        /*  Verificar que no exista otro ingrediente con el mismo nombre */
+        $sql_verificar = "SELECT id FROM ingredientes WHERE nombre=?";
+        $sentencia = $conexion->prepare($sql_verificar);
+        $sentencia->bind_param("s", $ingrediente_normalizado);
+        $sentencia->execute();
 
-            /* Quitar tíldes */
-            $texto = strtr($texto, [
-                'á' => 'a', 'é' => 'e', 'í' => 'i',
-                'ó' => 'o', 'ú' => 'u', 'ü' => 'u',
-                'Á' => 'a', 'É' => 'e', 'Í' => 'i',
-                'Ó' => 'o', 'Ú' => 'u', 'Ü' => 'u'
-            ]);
+        $resultado_ing = $sentencia->get_result();
 
-            /* Quitar cualquier espacio extra */
-            $texto = trim($texto);
-
-            return $texto;
-        }
-        $ingrediente = $_POST["ingrediente"];
-        $ingrediente_normalizado = cambiarTexto($_POST["ingrediente"]) ;
-
-        if($ingrediente === "") {
-            $mensaje = "Campo vacío";
-        }
-        else {
-            /*  Verificar que no exista otro ingrediente con el mismo nombre */
-            $sql_verificar = "SELECT id FROM ingredientes WHERE nombre=?";
-            $sentencia = $conexion->prepare($sql_verificar);
-            $sentencia->bind_param("s", $ingrediente_normalizado);
-            $sentencia->execute();
-
-            $resultado_ing = $sentencia->get_result();
-
-            /* SI cumple condicional entonces no se agrega a la BD */
-            if($resultado_ing->num_rows > 0) {
-                $mensaje = "Este ingrediente ya existe";
-            } else if ($resultado_ing->num_rows === 0) {
-                $sql_agregar_ing = "INSERT INTO ingredientes (nombre) VALUES (?)";
-                $sentencia = $conexion->prepare($sql_agregar_ing);
-                if($sentencia){
-                    $sentencia->bind_param("s", $ingrediente);
-                    if($sentencia->execute()) {
-                        $mensaje = "Ingrediente añadido!";
-                    } else {
-                        $mensaje = "Ocurrio un error al registrar";
-                    }
-                    $sentencia->close();
+        /* SI cumple condicional entonces no se agrega a la BD */
+        if($resultado_ing->num_rows > 0) {
+            $mensaje = "Este ingrediente ya existe";
+        } else if ($resultado_ing->num_rows === 0) {
+            $sql_agregar_ing = "INSERT INTO ingredientes (nombre) VALUES (?)";
+            $sentencia = $conexion->prepare($sql_agregar_ing);
+            if($sentencia){
+                $sentencia->bind_param("s", $ingrediente);
+                if($sentencia->execute()) {
+                    $mensaje = "Ingrediente añadido!";
                 } else {
-                    $mensaje = "Error al preparar la sentencia " . $conexion->error;
+                    $mensaje = "Ocurrio un error al registrar";
                 }
+                $sentencia->close();
+            } else {
+                $mensaje = "Error al preparar la sentencia " . $conexion->error;
             }
         }
     }
-
-    /* Pedir los datos en las 3 tablas. INGREDIENTES. RECETAS. USUARIOS */
-    /* Seleccionar datos de la tabla ingredientes */
-    $sql_ingredientes = $conexion->query(
-        "SELECT id, nombre 
-            FROM ingredientes 
-            ORDER BY id DESC"
-        );
-    /* Seleccionar datos de la tabla recetas pendientes */
-    $sql_recetas = $conexion->query(
-        "SELECT id, nombre, imagen, id_usuario, estado
-            FROM recetas 
-            ORDER BY id DESC"
-    );
-    /* Seleccionar datos de la tabla usuarios */
-    $sql_usuarios = $conexion->query(
-        "SELECT id, nombre, correo, creado_en, rol
-            FROM usuarios
-            ORDER BY id DESC"
-    );
 }
+
+/* Pedir los datos en las 3 tablas. INGREDIENTES. RECETAS. USUARIOS */
+/* Seleccionar datos de la tabla ingredientes */
+$sql_ingredientes = $conexion->query(
+    "SELECT id, nombre 
+        FROM ingredientes 
+        ORDER BY id DESC"
+    );
+/* Seleccionar datos de la tabla recetas pendientes */
+$sql_recetas = $conexion->query(
+    "SELECT id, nombre, imagen, id_usuario, estado
+        FROM recetas 
+        ORDER BY id DESC"
+);
+/* Seleccionar datos de la tabla usuarios */
+$sql_usuarios = $conexion->query(
+    "SELECT id, nombre, correo, creado_en, rol
+        FROM usuarios
+        ORDER BY id DESC"
+);
+
+//Metodo para activar botón
+$seccion = $_GET['seccion'] ?? "";
 ?>
 <html>
 <head>
@@ -132,19 +115,26 @@ if (!isset($_SESSION["usuario_id"])) {
 <body>
     <?php require_once "includes/header.php"; ?>
         <main class="main">
-            <h2><?=htmlspecialchars($nombre_usuario);?></h2>
+            <h2>Panel de administración</h2>
             <div class="btns-accion">
-                <button id="btnIng" class="btn btn-activo">Ingredientes</button>
+                <p>Admin: <?=htmlspecialchars($nombre_usuario)?> </p>
+                <button id="btnIng" class="btn <?= ($seccion === 'ingrediente') ? 'btn-activo' : '' ?>">Ingredientes</button>
                 <button id="btnRec" class="btn">Recetas</button>
-                <button id="btnUsu" class="btn">Usuarios</button>
+                <button id="btnUsu" class="btn <?= ($seccion === 'usuarios') ? 'btn-activo' : '' ?>">Usuarios</button>
             </div>
-            <div id="ingrediente" class="div div-activo">
+            <!--Mensaje de Bienvenida cuando se entra al panel-->
+            <div id="vacio" class="div <?= ($seccion === '') ? 'div-activo' : '' ?>  ">
+                <h2>Bienvenido <?=htmlspecialchars($nombre_usuario)?> al panel de administración</h2>
+                <p>Elige una opción para continuar</p>
+            </div>
+            <!--Mostrar tabla de ingredientes. Y sección para crear ingredientes-->
+            <div id="ingrediente" class="div <?= ($seccion === 'ingrediente') ? 'div-activo' : '' ?>">
                 <h3>Lista de ingrediente</h3>
                 <div class="div-crear">
                     <form method="POST" class="form">
                         <p>Crear ingrediente</p>
                         <input id="form-ingrediente" type="text" name="ingrediente" required>
-                        <input type="submit" id="form-subir-ingrediente">
+                        <button type="submit" id="form-subir-ingrediente">Subir ingrediente</button>
                     </form>
                     <div class="div-admin-bus">
                             <input type="text" id="admin-buscar" placeholder="Buscar ingrediente...">
@@ -178,10 +168,13 @@ if (!isset($_SESSION["usuario_id"])) {
                     <?php endif;?>
                 </div>
             </div>
+            <!--Mostrar tabla de recetas que los usuarios han subido-->
             <div id="recetas" class="div">
                 <h3>Recetas pendientes</h3>
+                <p>No hay ninguna receta que revisar</p>
             </div>
-            <div id="usuarios" class="div">
+            <!--Mostrar lista de usuarios-->
+            <div id="usuarios" class="div <?= ($seccion === 'usuarios') ? 'div-activo' : '' ?>">
                 <h3>Lista de usuarios</h3>
                 <div class="div-datos">
                     <?php if($sql_usuarios && $sql_usuarios->num_rows > 0):?>

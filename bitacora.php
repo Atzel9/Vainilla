@@ -88,12 +88,17 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
             </div>
             <div class="cambio">
                 <h2 class="version">v1.2.0</h2>
-                <h2 class="fecha">25/10/2025</h2>
+                <h2 class="fecha">25/10/2025 - 26/10/25</h2>
                 <ul class="ul">
                     <li class="li">🚀Nueva barra de navegación para los usuarios en movil:</li>
                     <li class="li">➕Se añadieron 2 botones en la barra de navegación para dispositivos moviles. Estas son &quot;Crear&quot; y &quot;Actividades&quot;.</li>
-                    <li class="li">⚙️Los usuarios que no hayan iniciado sesión ahora en vez de ser redirigidos a la página de registro, ahora se abrirá una ventana modal para verificar si quieren iniciar sesión/registrar o cerrar la ventana, siendo mas amigable este método.</li>
-                    <li class="li">🚧El header no se mostrará en pantallas moviles. Será reemplazada para una más adaptada proximamente. Por el momento no se mostrará.</li>
+                    <li class="li">⚙️Los usuarios en movil que no hayan iniciado sesión ahora en vez de ser redirigidos a la página de registro, ahora se abrirá una ventana modal para verificar si quieren iniciar sesión/registrar o cerrar la ventana, siendo mas amigable este método.</li>
+                    <li class="li">🎛️El panel de administración ahora tiene estilos y está mejor adaptado.</li>
+                    <li class="li">👤Se agregaron las acciones de &quot;Editar/Eliminar&quot; en la tabla de usuarios para la tabla de administradores.</li>
+                    <li class="li">⚠️La página de error ahora tiene estilos.</li>
+                    <li class="li">➕Las paginas que necesiten rol de administrador ahora en vez de tener el código solo le llamara al archivo &quot;require_admin.php&quot; para menor confusión.</li>
+                    <li class="li">🚧(WIP) El header tendría cambios para un aspecto mas adaptado a lo que necesitan los usuarios. Por el momento aún no se terminan estos cambios.</li>
+                    <li class="li">🚧(WIP)El header no se mostrará en pantallas moviles. Será reemplazada para una más adaptada proximamente. Por el momento no se mostrará.</li>
                 </ul>
             </div>
         </div>

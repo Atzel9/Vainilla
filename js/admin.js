@@ -3,6 +3,7 @@ const btnIng = document.getElementById('btnIng');
 const btnRec = document.getElementById('btnRec');
 const btnUsu = document.getElementById('btnUsu');
 /* Definir contenedores del html */
+const inicio = document.getElementById('vacio');
 const ingrediente = document.getElementById('ingrediente');
 const receta = document.getElementById('recetas');
 const usuarios = document.getElementById('usuarios');
@@ -14,6 +15,7 @@ btnIng.addEventListener('click', () => {
     ingrediente.classList.add('div-activo');
 
     /* Ocultar los otros botones */
+    inicio.classList.remove('div-activo');
     btnRec.classList.remove('btn-activo');
     receta.classList.remove('div-activo');
     btnUsu.classList.remove('btn-activo');
@@ -27,6 +29,7 @@ btnRec.addEventListener('click', () => {
     receta.classList.add('div-activo');
 
     /* Ocultar los otros botones */
+    inicio.classList.remove('div-activo');
     btnIng.classList.remove('btn-activo');
     ingrediente.classList.remove('div-activo');
     btnUsu.classList.remove('btn-activo');
@@ -40,6 +43,7 @@ btnUsu.addEventListener('click', () => {
     usuarios.classList.add('div-activo');
 
     /* Ocultar los otros botones */
+    inicio.classList.remove('div-activo');
     btnRec.classList.remove('btn-activo');
     receta.classList.remove('div-activo');
     btnIng.classList.remove('btn-activo');

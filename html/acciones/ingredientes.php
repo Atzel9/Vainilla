@@ -1,31 +1,9 @@
 <?php
+//Conectar con sql
 require_once "../../conexion.php";
+//Página que solo esta disponible para administradores
+require_once "../acciones/require_admin.php";
 $mensaje = '';
-
-/* Primero verificar el estado de la cuenta del usuario */
-if (!isset($_SESSION["usuario_id"])) {
-    /* Si no ha iniciado sesion lo lleva a la pagina para que inicie sesion */
-    header("Location: ../iniciar_sesion.php");
-    exit;
-} else {
-    /* Seleccionar el rol del usuario para ver si tiene permitido acceder a la página */
-    $id = $_SESSION['usuario_id'] ?? null;
-    $nombre_usuario = $_SESSION['usuario_nombre'];
-    $sql = "SELECT nombre, rol FROM usuarios WHERE id=?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-
-    $resultado = $stmt->get_result();
-    $usuario = $resultado->fetch_assoc();
-
-    if($usuario['rol'] != 'admin') {
-        /* Si no tiene permiso lo redirige a la página de error */
-        header("Location: /bootcamp/Vainilla/html/includes/error.php?error=datos");
-        exit;
-    }
-    $stmt->close();
-}
 
 $id = $_GET["id"] ?? 0;
 

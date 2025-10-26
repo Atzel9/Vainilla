@@ -1,24 +1,3 @@
-.div-buscar {
-    margin-left: auto;
-    margin-right: 0;
-    display: none;
-    align-items: center;
-    height: 35px;
-    width: 370px;
-    background-color: var(--cornsilk);
-    border-radius: 25px;
-    box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
-    -moz-box-shadow: 0px 0px 5px 0px rgba(76,21,0,0.5);
-    cursor: text;
-}
-.div-buscar div {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    margin: 15px;
-    color: var(--gris);
-}
 #main {
     padding: 10px;
 }
@@ -87,10 +66,4 @@
 }
 .nav-movil-activo a {
     color: var(--cafe);
-}
-/*INICIO RESPONSIVO*/
-@media screen and (min-width:769px) {
-    .div-buscar {
-        display: flex;
-    }
 }

@@ -1,0 +1,33 @@
+main {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+    width: 90%;
+    margin: 50px auto;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 2px solid #cc0000;
+    border-radius: 26px;
+}
+main i {
+    font-size: 3em;
+    color: #cc0000;
+}
+main h2, main p, main a {
+    text-align: center;
+}
+
+main a{
+    display: inline-block;
+    padding: 16px 10px;
+    background-color: var(--color_pri);
+    color: var(--cornsilk);
+    border-radius: 16px;
+}
+
+@media  (min-width: 426px) {
+    main {
+        width: 380px;
+    }
+    
+}

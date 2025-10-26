@@ -1,8 +1,8 @@
 <?php
-require_once "../conexion.php";
+require_once "../../conexion.php";
 
 /* 1) Validar parámetro id */
-$id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+$id = isset($_POST["id"]) ? (int)$_POST["id"] : 0;
 if ($id <= 0) {
     die("ID inválido.");
 }
@@ -27,7 +27,7 @@ $sentencia_del->bind_param("i", $id);
 
 if ($sentencia_del->execute()) {
     $sentencia_del->close();
-    header("Location: perfil.php");
+    header("Location: ../admin.php?seccion=usuarios");
     exit;
 } else {
     $sentencia_del->close();

@@ -17,6 +17,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <link rel="icon" type="image/x-icon" href="../../img/icono.png">
     <!--Link para ingresar a los estilos-->
     <link rel="stylesheet" href="../../css/styles.css?v=1.2">
+    <link rel="stylesheet" href="../../css/styles_error.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,8 +37,9 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     />
 </head>
 <body>
-    <?php require_once "header.php" ?>
+    <?php require_once "../includes/header.php" ?>
     <main>
+        <i class="ph ph-smiley-x-eyes"></i>
         <h2>ERROR</h2>
         <?php if($error === "datos"):?>
             <p>Hubo un error en los datos</p>
@@ -47,7 +49,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
             <a href="../../index.php" class="regresar">Regresar a página principal</a>
         <?php endif?>
     </main>
-    <?php require_once "footer.php" ?>
-    <?php require_once "nav-mobil.php" ?>
+    <?php require_once "../includes/footer.php" ?>
+    <?php require_once "../includes/nav-mobil.php" ?>
 </body>
 </html>

@@ -2,28 +2,40 @@
     display: flex;
     flex-wrap: wrap;
     margin: 10px auto;
-    max-height: 80vh;
+    min-height: 80vh;
     width: 95%;
     border: 1px solid var(--texto_gris);
 }
 .main h2 {
     width: 100%;
 }
+/*Menú de botones de acción*/
 .main .btns-accion {
     display: flex;
+    position: sticky;
+    top: 50%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    height: 100%;
     width: 20%;
+    margin: 15px 25px;
 }
-.main .div .div-datos {
-    height: 50vh;
+.btn {
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
     width: 100%;
-    overflow: auto;
 }
+
 .main .h3_ing {
     width: 100%;
+}
+.btn-activo {
+    background-color: var(--cafe);
+    color: var(--cornsilk);
 }
 .div {
     display: none;
@@ -32,38 +44,58 @@
 .div h3 {
     width: 100%;
 }
-.btn {
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-}
-.btn-activo {
-    background-color: var(--cafe);
-    color: var(--cornsilk);
-}
-
 .div-activo {
     display: flex;
-    margin: 30px;
+    height: 100%;
+    margin: 0 auto;
 }
 .div-crear {
+    position: sticky;
+    top: 130px;
     margin: 10px 0;
+    padding: 5px;
+    border: 2px solid var(--color_pri);
+    border-radius: 16px;
     width: 100%;
+    background-color: var(--fondo);
 }
-/*ESTILO AL BUSCADOR*/
-.div-admin-bus {
+.div-crear form {
     display: flex;
-    justify-content: end;
-    margin: 10px 0;
+    flex-direction: column;
+    gap: 5px;
 }
-.div-admin-bus input {
-    width: 200px;
+.div-crear form input, .div-crear .div-admin-bus input {
+    margin-top: 10px;
+    padding: 4px 8px;
+    border: 2px solid #bbbbbb;
+    border-radius: 16px;
+    width: 30%;
+    transition: all 0.2s ease;
 }
+.div-crear form input[type= "text" ]:focus, .div-crear form input[type= "text" ]:focus-visible,
+.div-crear .div-admin-bus input[type= "text" ]:focus, .div-crear .div-admin-bus input[type= "text" ]:focus-visible {
+    outline: none;
+    border: 2px solid var(--color_pri);
+}
+.div-crear form button {
+    padding: 8px 10px;
+    width: 30%;
+    border-radius: 16px;
+    border: none;
+    background-color: var(--color_pri);
+    color: var(--cornsilk);
+    cursor: pointer;
+}
+.main .div .div-datos {
+    width: 100%;
+    overflow: auto;
+}
+
 
 /*ESTILOS A TABLAS*/
 .table {
     width: 100%;
+    table-layout: auto;
     border-collapse: collapse;
     overflow: auto;
 }
@@ -78,6 +110,15 @@ th {
 
 tr:nth-child(even) {
     background-color: #fafafa;
+}
+/*ESTILO AL BUSCADOR*/
+.div-admin-bus {
+    display: flex;
+    justify-content: end;
+    margin: 10px 0;
+}
+.div-admin-bus input {
+    width: 200px;
 }
 
 /*ESTILOS A ACCIONES INGREDIENTES*/
