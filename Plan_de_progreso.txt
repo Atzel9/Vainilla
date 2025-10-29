@@ -21,12 +21,6 @@ Poner páginas lista_ingredientes.php, ingrediente_form.php.
 
 Entregable semana: lista_ingredientes.php funcionando, tests locales con 10 ingredientes de prueba.
 
-Tareas para los compañeros (novatos):
-
-Rellenar una hoja de Google/CSV con 30 ingredientes de prueba.
-
-Revisar ortografía de ingredientes.
-
 
 Criterio de aceptación: crear/editar/eliminar funciona sin warnings y sin duplicados (normalizados).
 
@@ -50,10 +44,6 @@ Para imágenes: almacenar ruta en imagen (no blob). Subir archivo a img/recetas/
 
 
 Entregable semana: subir receta (usuario) crea entrada en BD y relaciones con ingredientes.
-
-Tareas para los compañeros:
-
-Rellenar 10 recetas (en un Google Form/Sheet o en el formulario si están en la misma red).
 
 
 Criterio de aceptación: al crear receta la tabla recetas y receta_ingrediente se llenan correctamente.
@@ -79,11 +69,6 @@ Proteger rutas: if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') he
 
 Entregable semana: admin puede aprobar/rechazar y ver usuarios.
 
-Tareas para los compañeros:
-
-Uno puede encargarse de probar el flujo y reportar bugs; otro puede escribir mini-informes de prueba (qué pasó cuando aprobaron X receta).
-
-
 Criterio de aceptación: solo admins ven el panel; aprobar hace que la receta sea visible públicamente.
 
 
@@ -107,11 +92,6 @@ Manejo de errores: si id no existe → redirigir a error.php?error=usuario o err
 
 Entregable semana: búsqueda y detalle funcionando, enlaces entre listados y detalle.
 
-Tareas para compañeros:
-
-Testear varias búsquedas y verificar que las recetas mostradas coinciden con los ingredientes.
-
-
 Criterio de aceptación: solo recetas aprobadas aparecen; link detalle genera página dinámica.
 
 
@@ -134,10 +114,6 @@ Interfaz: en el detalle de receta se ve botón favorito / hacer más tarde.
 
 
 Entregable semana: perfil con lista propias, favoritos y "hacer más tarde" básico.
-
-Tareas para compañeros:
-
-Probar añadir/remover favoritos y crear recetas desde cuenta propia.
 
 
 Criterio de aceptación: acciones per-user funcionan (guardadas en BD); listas en perfil se muestran correctamente.
@@ -165,44 +141,8 @@ Documentación mínima: README con cómo ejecutar en XAMPP + pasos para importar
 Último día: CSS básico (header/footer consistente) y demo.
 
 
-Entregable semana: features principales integradas, database.sql, README, demo local.
-
 Criterio de aceptación: demo funcional con casos de prueba; el profesor puede abrir y ver login, crear receta, aprobar (admin), ver receta en público.
 
-
-
----
-
-Asignación de tareas para tus 2 compañeros (novatos)
-
-Dales tareas concretas y no técnicas:
-
-Compañero A (contenido): Llenar Google Sheet con: 30 ingredientes + 20 recetas (título, instrucciones, tiempo, ingredientes seleccionados). También subir imágenes si hay.
-
-Compañero B (UI básico): Ajustar CSS mínimo (cambios de color, fuentes) en includes/nav.php y footer.php, y revisar ortografía en textos.
-
-Tú (backend + puntos difíciles): login, roles, CRUD ingredientes, CRUD recetas, panel admin, perfil, integraciones.
-
-
-Esto te permite marcar avances por miembro (lo que pide el profe).
-
-
----
-
-Checklist semanal (para marcar antes de pasar a la siguiente)
-
-[ ] Funcionalidad principal (C/R/U/D) probada.
-
-[ ] 5 casos de prueba manuales OK (crear, editar, borrar, iniciar sesión, buscar).
-
-[ ] database.sql exportado con esquema + datos de ejemplo.
-
-[ ] 1 vídeo/zip o screenshots de avance listos para entregar al profe.
-
-[ ] Commit en Git con mensaje claro.
-
-
-Haz commits pequeños y frecuentes: git add . && git commit -m "Ingredientes: add edit delete and validation".
 
 
 ---
