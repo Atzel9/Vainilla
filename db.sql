@@ -26,14 +26,12 @@ CREATE TABLE ingredientes (
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE ingredientes AUTO_INCREMENT=1;
-DROP TABLE IF EXISTS recetas
-
 
 CREATE TABLE recetas (
     id INT AUTO_INCREMENT KEY,
     nombre VARCHAR(100) COLLATE utf8mb4_unicode_ci,
     creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    imagen VARCHAR(255),
     descripcion TEXT,
     tiempo INT,
     id_usuario INT NOT NULL,
@@ -43,11 +41,6 @@ CREATE TABLE recetas (
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_unicode_ci;
-
-ALTER TABLE recetas
-MODIFY nombre VARCHAR(100) COLLATE utf8mb4_unicode_ci;
-
-DROP TABLE IF EXISTS recetas_ingredientes
 
 CREATE TABLE recetas_ingredientes (
     id_receta INT NOT NULL,
