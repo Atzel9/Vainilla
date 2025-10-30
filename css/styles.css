@@ -49,9 +49,9 @@ ul {
     width: 100%;
     z-index: 1000;
     padding: 15px 20px;
-    box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.25);
     backdrop-filter: blur(25px);
 }
 .div-inicio {
@@ -65,19 +65,56 @@ ul {
     width: 80px;
     height: auto;
 }
-.div-buscador {
+.div-buscador-header {
+    display: flex;
+    align-items: center;
+    justify-self: start;
     width: 60%;
 }
-.div-buscador a {
+.div-buscador-header a {
     display: block;
     width: 100%;
-    background-color: #c4c4c4;
+    cursor: text;
+    background-color:rgba(255, 202, 142, 0.5);
+    padding: 20px;
+    border-radius: 26px;
+    box-shadow: inset 15px 15px 41px 11px rgba(254,236,185,0.4);
+    backdrop-filter: blur(25px);
 }
 .div-perfil {
+    margin: 0.5em;
+}
+.index-perfil, .login {
     display: flex;
     flex-direction: row;
-    justify-content: end;
-    margin: 0.5em;
+    gap: 10px;
+}
+.index-perfil a, .login a {
+    padding: 10px 20px;
+    background-color: var(--color_pri);
+    border-radius: 26px;
+}
+.usuario {
+    display: flex;
+    gap: 5px;
+}
+.usuario i, .usuario p, .login a {transition: all 0.2s ease;}
+
+.usuario:hover i, .usuario:hover p,
+.iniciar-sesion:hover, .registrarse:hover {color: var(--cornsilk);}
+
+.configuracion i {
+    display: inline-block;
+    font-size: 1.2em;
+    transition: all 0.2s ease;
+}
+.configuracion:hover i {
+    color: var(--cornsilk);
+    transform: rotate(90deg);
+}
+.login {
+    display: flex;
+    flex-direction: row;
 }
 .nav ul {
     display: flex;
@@ -201,61 +238,41 @@ ul {
 
 /*INICIO ESTILO A FOOTER*/
 .footer {
-    margin-top: 30px;
+    margin-top: 28px;
+    min-height: 100px;
     display: flex;
     flex-direction: column;
-    padding: 15px;
-    width: 100%;
-    background-color: var(--fondo2);
-}
-.ul-postres {
-    display: flex;
-    list-style: none;
-    flex-direction: column;
-    gap: 0.7em;
-}
-.lista-postres {
-    font-weight: 700;
-    font-size: 0.8em;
-}
-.footer-hr {
-    display: flex;
-    margin: 16px auto;
-    width: 95%;
-    border: 2px solid var(--color_pri);
-    border-radius: 2px;
-}
-.redes-titulo {
-    margin-bottom: 15px;
+    justify-content: space-between;
     text-align: center;
 }
-.ul-redes {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    margin: 15px;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 1em;
+.footer div {
+    margin: 0 40px;
+    width: 80%;
+    background-color: var(--color_pri);
+    padding: 16px 24px;
 }
-.lista-redes {
+.footer-titulo {
+    border-top-left-radius: 26px;
+    border-top-right-radius: 26px;
     font-size: 1.2em;
-    color: white;
-    background-color: var(--cafe);
-    padding: 8px 9px;
-    border-radius: 50%;
 }
-.ul-extras {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-.lista-texto, a {
-    font-size: 0.9em;
+.footer-vainilla {
+    font-family: var(--alegraya);
     font-weight: 700;
+}
+.info {
+    border-bottom-left-radius: 26px ;
+    border-bottom-right-radius: 26px;
+}
+.info .ul-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.ul-info {
+    gap: 7px;
 }
 /*FIN ESTILO AL FOOTER*/
 /*INICIO RESPONSIVE*/
@@ -304,13 +321,17 @@ ul {
     #nav-movil {
         display: none;
     }
-    footer {
-        margin-bottom: 0;
+    .footer {
+        flex-wrap: nowrap;
     }
-    .iniciar-sesion, .buscar {
-        display: block;
+    .footer div {
+    margin: 0 40px;
+    width: auto;
+    background-color: var(--color_pri);
+    border-radius: 26px;
+    padding: 16px 24px;
     }
-    .usuario {
-        display: flex;
+    .info .ul-info {
+        flex-wrap: nowrap;
     }
 }

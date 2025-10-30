@@ -2,28 +2,24 @@
 require_once "../../conexion.php";
 require_once "require_admin.php";
 
-/* 1) Validar parámetro id */
-$id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
-if ($id <= 0) {
+$id_user = isset($_GET["id"]) ? (int)$_GET["id"] : 0;
+if ($id_user <= 0) {
     die("ID inválido.");
 }
 
-/* 2) Obtener datos actuales del usuario */
-$usuario = null;
-$sql_sel = "SELECT id, nombre, rol, correo FROM usuarios WHERE id = ?";
-$sentencia_sel = $conexion->prepare($sql_sel);
-if (!$sentencia_sel) { die("Error al preparar la consulta: " . $conexion->error); }
-$sentencia_sel->bind_param("i", $id);
-$sentencia_sel->execute();
-$resultado_sel = $sentencia_sel->get_result();
-if ($resultado_sel && $resultado_sel->num_rows === 1) {
-    $usuario = $resultado_sel->fetch_assoc();
-} else {
-    die("Usuario no encontrado.");
-}
-$sentencia_sel->close();
+$sql_user = "SELECT id, nombre, correo, contrasena_hash, rol FROM usuarios WHERE id = ?";
+$sentencia_user = $conexion->prepare($sql_user);
+$sentencia_user->bind_param("i", $id_user);
+$sentencia_user->execute();
 
-/* 3) Procesar envío de formulario (POST) */
+$resultado_user = $sentencia_user->get_result();
+if ($resultado_user->num_rows != 1) {
+    header("Location: error.php?error=datos");
+} else {
+    $usuario = $resultado_user->fetch_assoc();
+}
+$sentencia_user->close();
+
 $mensaje = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre            = trim($_POST["nombre"] ?? "");
@@ -46,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (!$sentencia_up) {
                 $mensaje = "Error al preparar actualización: " . $conexion->error;
             } else {
-                $sentencia_up->bind_param("ssssi", $nombre, $correo, $rol, $contrasena_hash, $id);
+                $sentencia_up->bind_param("ssssi", $nombre, $correo, $rol, $contrasena_hash, $id_user);
                 if ($sentencia_up->execute()) {
                     $mensaje = "Usuario actualizado (incluye nueva contraseña).";
                     $usuario["nombre"] = $nombre;
@@ -68,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (!$sentencia_up) {
                 $mensaje = "Error al preparar actualización: " . $conexion->error;
             } else {
-                $sentencia_up->bind_param("sssi", $nombre, $correo, $rol, $id);
+                $sentencia_up->bind_param("sssi", $nombre, $correo, $rol, $id_user);
                 if ($sentencia_up->execute()) {
                     $mensaje = "Usuario actualizado.";
                     $usuario["nombre"] = $nombre;
@@ -96,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="icon" type="image/x-icon" href="../../img/icono.png">
     <!--Link para ingresar a los estilos-->
     <link rel="stylesheet" href="../../css/styles.css">
-    <link rel="stylesheet" href="../../css/styles_usuario.css">
+    <link rel="stylesheet" href="../../css/styles_admin.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -130,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php endif; ?>
 
         <p> <?=htmlspecialchars($usuario['id']) ?> </p>
-        <form method="post" action="usuario.php?id=<?= (int)$usuario['id'] ?>" novalidate>
+        <form method="post" action="usuario.php?id=<?= $usuario['id'] ?>" novalidate>
             <label for="nombre">Nombre</label>
             <input id="nombre" name="nombre" type="text" required maxlength="100"
                 value="<?= htmlspecialchars($usuario['nombre']) ?>">
@@ -153,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit">Guardar cambios</button>
         </form>
         <form method="POST" action="eliminar_usuario.php">
-            <input type="hidden" name="id" value="<?= (int)$usuario['id'] ?>">
+            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
             <button type="submit" onclick="return confirm('¿Estás seguro de eliminar el usuario?');">Eliminar usuario</button>
         </form>
     </main>
