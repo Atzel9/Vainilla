@@ -33,9 +33,6 @@ a {
     text-decoration: none;
     color: inherit;
 }
-footer {
-    margin-bottom: 60px;
-}
 ul {
     list-style: none;
 }
@@ -124,6 +121,42 @@ ul {
     gap: 20px;
 }
 /*FIN ESTILO A HEADER*/
+/*INICIO ESTILO A NAVEGADOR PC*/
+.nav-pc {
+    display: none;
+    position: fixed;
+    top: 20%;
+    align-items: center;
+    justify-content: center;
+    height: 335px;
+    width: 80px;
+    margin: 25px 15px;
+    border-radius: 33px;
+    background-color: var(--color_ter);
+}
+.ul-nav-pc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    gap: 10px;
+}
+.li-nav-pc button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+}
+.li-nav-pc:hover a, .li-nav-pc:hover button {
+    background-color: var(--fondo);
+}
+.li-nav-pc a, .li-nav-pc button {
+    border-radius: 20px;
+    font-size: 1.5em;
+    transition: all 0.2s ease;
+    padding: 1px 3px;
+}
+/*FIN ESTILO A NAVEGADOR PC*/
 /*INICIO ESTILO A NAVEGADOR MOVIL*/
 #nav-movil {
     position: fixed;
@@ -215,6 +248,7 @@ ul {
     font-size: 1.2em;
     background: none;
     border: none;
+    cursor: pointer;
 }
 .modal-btns {
     display: flex;
@@ -239,6 +273,7 @@ ul {
 /*INICIO ESTILO A FOOTER*/
 .footer {
     margin-top: 28px;
+    margin-bottom: 60px;
     min-height: 100px;
     display: flex;
     flex-direction: column;
@@ -312,17 +347,24 @@ ul {
     }
 }
 @media screen and (min-width: 769px) {
+    .main {
+        padding-left: 110px;
+    }
     #header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
+    .nav-pc {
+        display: flex;
+    }
     #nav-movil {
         display: none;
     }
     .footer {
         flex-wrap: nowrap;
+        margin-bottom: 0px;
     }
     .footer div {
     margin: 0 40px;
@@ -333,5 +375,8 @@ ul {
     }
     .info .ul-info {
         flex-wrap: nowrap;
+    }
+    .contenedor-modal {
+        width: 350px;
     }
 }

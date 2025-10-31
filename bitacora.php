@@ -101,6 +101,14 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                     <li class="li">🚧(WIP)El header no se mostrará en pantallas moviles. Será reemplazada para una más adaptada proximamente. Por el momento no se mostrará.</li>
                 </ul>
             </div>
+            <div class="cambio">
+                <h2 class="version">v.1.3.0</h2>
+                <h2 class="fecha">31/10/2025</h2>
+                <ul class="ul">
+                    <li class="li">🖌️Nueva barra de navegación para las pantallas moviles.</li>
+                    <li class="li">🖌️Nuevo header para las pantallas de escritorio agregando y cambiando las funciones para que la experiencia de usuario sea mejor.</li>
+                </ul>
+            </div>
         </div>
     </section>
     <!--Inicio Footer-->

@@ -36,7 +36,8 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <!--Inicio del header-->
     <?php require_once "html/includes/header.php";?> 
     <!--Fin del header-->
-    <main id="main">
+    <?php require_once "html/includes/nav-pc.php"; ?>
+    <main id="main" class="main">
         <!--Inicio donde se muestran las recetas-->
         <section id="recetario" class="section">
             <h2>En tu recetario</h2>

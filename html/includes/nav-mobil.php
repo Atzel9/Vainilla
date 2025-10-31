@@ -5,7 +5,7 @@
             <button id="cerrar" class="nav-btn-cerrar"><i class="ph ph-x"></i></button>
             <div class="modal-txt">
                 <h2>Inicia sesión o Registrate</h2>
-                <p>Al ser usuario registrado tienes acceso a poder crear recetas, añadir favoritos y calificar!</p>
+                <p>Al ser usuario registrado tienes acceso a poder crear recetas, añadir favoritos y calificar</p>
             </div>
             <div class="modal-btns">
                 <a href="/bootcamp/Vainilla/html/registrar.php">Registrarse</a>
