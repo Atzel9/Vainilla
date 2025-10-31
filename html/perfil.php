@@ -61,6 +61,7 @@ $consulta = $conexion->query(
     <!--Inicio del header-->
     <?php require_once "includes/header.php"; ?>
     <!--Fin del header-->
+    <?php require_once "includes/nav-pc.php"; ?>
     <main class="main">
 
     <section class="info-perfil">
