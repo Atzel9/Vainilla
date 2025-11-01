@@ -1,0 +1,21 @@
+#lis-rec {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+}
+.lista-desactiva {
+    max-height: 0px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+.lista-activa {
+    max-height: 450px;
+    display: flex;
+    height: auto;
+    transition: all 0.5s ease;
+    overflow: auto;
+}
+#buscador-ingrediente {
+    position: sticky;
+    top: 0;
+}
