@@ -1,3 +1,14 @@
+<?php
+require_once "../conexion.php";
+
+if(!isset($_SESSION['usuario_id'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+//Pedir lista de ingredientes
+$sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); //Ordenar la lista de manera alfabetica de "a" a "z"
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,9 +43,52 @@
 <body>
     <?php require_once "includes/header.php";?> 
     <?php require_once "includes/nav-pc.php"; ?>
+    <main class="main">
+        <form action="crear-receta.php" class="form-rec">
+            <div class="form-rec-datos">
+                <label for="imagen">
+                    <input type="file" accept="image/jpg, image/jpg, image/png, image/webp">
+                </label>
+                <label for="titulo">
+                    <input type="text" name="titulo" placeholder="Nombre de la receta" required>
+                </label>
+            </div>
+            <div class="form-rec-txt">
+                <div class="for-rec-ing">
+                    <!--Lista de contenedor que contiene los ingredientes agregados-->
+                    <div id="ingredientes-seleccionados">
+
+                    </div>
+                    <h2>Selecciona los ingredientes:</h2>
+                    <button class="form-rec-ing" type="button">Lista de ingredientes</button>
+                    <!--Lista de contenedor que contiene la lista de ingredientes y el buscador-->
+                    <div id="lis-rec" class="lis-rec">
+                        <div id="buscador-ingrediente">
+                            <input type="text" placeholder="Buscar ingrediente...">
+                        </div>
+                        <div class="lista-ing">
+                            <?php while($fila_ing = $sql_ing->fetch_assoc()):?>
+                                <div class="div-lista-ing" data-id="<?=htmlspecialchars($fila_ing['id'])?>" data-nombre=" <?=htmlspecialchars($fila_ing['nombre'])?> ">
+                                    <span class="nombre-ingrediente"><?=htmlspecialchars($fila_ing['nombre'])?></span>
+                                    <button class="agregar-ingrediente" type="button"><i class="ph ph-plus"></i></button>
+                                </div>
+                            <?php endwhile;?>
+                        </div>
+                    </div>
+                </div>
+                <div id="form-texto" class="form-rec-txt">
+                    <h2>Indica los pasos para hacer esta receta:</h2>
+                    <button class="crear-paso" type="button">Crear paso</button>
+                </div>
+            </div>
+            <button class="form-rec-btn" type="submit">Subir receta</button>
+        </form>
+    </main>
     <?php require_once "includes/footer.php"; ?> 
     <?php require_once "includes/nav-mobil.php"; ?>
     <!-- Acceso a javascript-->
-    <script src="js/app.js"></script>
+    <script src="../js/app.js"></script>
+    <!-- Script para las recetas-->
+    <script src="../js/receta.js"></script>
 </body>
 </html>
