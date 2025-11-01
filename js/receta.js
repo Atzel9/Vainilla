@@ -62,7 +62,6 @@ bscIng.addEventListener('input', () => {
             if(nombreIngnorm.includes(textoNormalizado)) {
                 lista.style.display = "";
             } else {
-                console.log("Oculto");
                 lista.style.display = "none";
             }
         });
