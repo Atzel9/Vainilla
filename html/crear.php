@@ -63,12 +63,12 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
                     <button id="btn-lista-ing" class="form-rec-ing" type="button">Lista de ingredientes <i class="ph ph-caret-down"></i></button>
                     <!--Lista de contenedor que contiene la lista de ingredientes y el buscador-->
                     <div id="lis-rec" class="lis-rec lista-desactiva">
-                        <div id="buscador-ingrediente">
-                            <input type="text" placeholder="Buscar ingrediente...">
+                        <div class="div-rec-buscador">
+                            <input id="buscador-ingrediente" type="text" placeholder="Buscar ingrediente...">
                         </div>
-                        <div class="lista-ing">
+                        <div class="contenedor-lista-ing">
                             <?php while($fila_ing = $sql_ing->fetch_assoc()):?>
-                                <div class="div-lista-ing" data-id="<?=htmlspecialchars($fila_ing['id'])?>" data-nombre=" <?=htmlspecialchars($fila_ing['nombre'])?> ">
+                                <div class="lista-ing" data-id="<?=htmlspecialchars($fila_ing['id'])?>" data-nombre=" <?=htmlspecialchars($fila_ing['nombre'])?> ">
                                     <span class="nombre-ingrediente"><?=htmlspecialchars($fila_ing['nombre'])?></span>
                                     <button class="agregar-ingrediente" type="button"><i class="ph ph-plus"></i></button>
                                 </div>

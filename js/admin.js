@@ -53,7 +53,7 @@ btnUsu.addEventListener('click', () => {
 /* Código para el buscador de ingredientes */
 /* Función para eliminar acento */
 function removerAcento(cadena) {
-    cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    cadena = cadena.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     console.log("Se normalizo: ", cadena);
     return cadena;
 }
@@ -77,7 +77,7 @@ iptBus.addEventListener("input", function(){
             const textoCelda = nombre.textContent.toLowerCase();
             let textoCeldaNorm = removerAcento(textoCelda);
 
-            if(textoCeldaNorm.includes(texto)) {
+            if(textoCeldaNorm.includes(textoNormalizado)) {
                 lista.style.display = "";
             } else {
                 lista.style.display = "none";
@@ -88,4 +88,4 @@ iptBus.addEventListener("input", function(){
             lista.style.display = "";
         });
     }
-})
+});
