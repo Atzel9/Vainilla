@@ -72,7 +72,7 @@ bscIng.addEventListener('input', () => {
     }
 });
 
-//a. -> Agregar ingredientes
+//a.3 -> Agregar ingredientes
 
 //función para agregar el contenedor
 function agregarIngrediente(id, ingrediente){
@@ -167,13 +167,63 @@ btnAgregar.forEach(boton => {
     });
 });
 
-function anadirPaso() {
-    let nuevoDiv = document.createElement("div"); //crear div
-    let nuevoTitulo = document.createElement("h2"); //crear titulo
-    let nuevoTextArea = document.createElement("textarea"); //crear el textarea
+/*b) ----SECCIÓN---- */
+/*
+1.Crear el contenedor para agregar el nuevo paso
+2.Crear el evento del botón para que se cree
+*/
+//b.1 ->Creacíon del contenedor para el textarea
+function anadirPaso(paso) {
+    //Div donde se va a agregar el text area
+    const divPrincipal = document.getElementById("form-texto");
 
-    nuevoDiv.append(nuevoTitulo, nuevoTextArea); //anidar los elementos dentro del div
+    //Crear Div
+    const nuevoPaso = document.createElement("div");
+    nuevoPaso.classList.add("div-paso");
+    //Crear número de paso
+    const nuevoTitulo = document.createElement("h2");
+    nuevoTitulo.classList.add("paso-h2");
+    pasoNuevo = paso + 1;
+    nuevoTitulo.textContent = `Paso ${pasoNuevo}`;
+    //Crear botón para eliminar el paso
+    const eliminarPaso = document.createElement("button");
+    eliminarPaso.classList.add("eliminar-paso");
+    eliminarPaso.innerHTML = "<i class=\"ph ph-x\"></i>";
+    //Crear el textarea y el name
+    const nuevoTextArea = document.createElement("textarea");
+    nuevoTextArea.classList.add("textarea");
+    nuevoTextArea.name = "paso[]";
+    nuevoTextArea.placeholder = "Escribir instrucciones...";
 
-    let divPadre = document.getElementById("form-texto");
-    divPadre.insertBefore()
+    //Eliminar paso
+    eliminarPaso.addEventListener('click', () => {
+        nuevoPaso.remove();
+    });
+
+    //anidar los elementos dentro del div
+    nuevoPaso.appendChild(nuevoTitulo);
+    nuevoPaso.appendChild(eliminarPaso);
+    nuevoPaso.appendChild(nuevoTextArea);
+
+    divPrincipal.appendChild(nuevoPaso);
 }
+//b.2 -> Evento botón para crear el contenedor
+// Si no hay texto en el último text area evita que se cree otro.
+const btnAgregarPaso = document.getElementById("crear-bloquetxt");
+
+btnAgregarPaso.addEventListener('click', function() {
+    //Seleccionar todos los textarea
+    let pasos = document.querySelectorAll(".textarea");
+    //Contar el número de pasos
+    let numPaso = pasos.length;
+
+    //Ir al último textarea y revisar el dato
+    let ultimoPaso = pasos[pasos.length - 1];
+    let txtUltimoPaso = ultimoPaso.value;
+
+    if ( txtUltimoPaso.trim() !== "" ) {
+        anadirPaso(numPaso);
+    } else {
+        ultimoPaso.placeholder = "Escribe las instrucciones!!!...";
+    }
+});
