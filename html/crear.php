@@ -80,7 +80,7 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
                     <h2>Indica los pasos para hacer esta receta:</h2>
                     <button id="crear-bloquetxt" class="crear-paso" type="button">Crear paso</button>
                     <div class="div-paso" data-paso="1">
-                        <h2>Paso 1</h2>
+                        <h2 class="paso-h2">Paso 1</h2>
                         <textarea class="textarea" name="paso[]" placeholder="Escribir instrucciones..."></textarea>
                     </div>
                 </div>

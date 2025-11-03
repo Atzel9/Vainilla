@@ -180,10 +180,11 @@ function anadirPaso(paso) {
     //Crear Div
     const nuevoPaso = document.createElement("div");
     nuevoPaso.classList.add("div-paso");
+    pasoNuevo = paso + 1;
+    nuevoPaso.setAttribute("data-paso", pasoNuevo);
     //Crear número de paso
     const nuevoTitulo = document.createElement("h2");
     nuevoTitulo.classList.add("paso-h2");
-    pasoNuevo = paso + 1;
     nuevoTitulo.textContent = `Paso ${pasoNuevo}`;
     //Crear botón para eliminar el paso
     const eliminarPaso = document.createElement("button");
@@ -195,9 +196,21 @@ function anadirPaso(paso) {
     nuevoTextArea.name = "paso[]";
     nuevoTextArea.placeholder = "Escribir instrucciones...";
 
-    //Eliminar paso
+    //Actualizar pasos si se elimina un paso
+    function actualizarPasos (numElim){
+        console.log(numElim);
+        const titPasos = document.querySelectorAll(".paso-h2");
+        for (let i = numElim; i < titPasos.length; i++) {
+            titPasos[i].textContent = `Paso ${i + 1}`;
+        };
+    };
+
+    //Eliminar paso, cuando el paso se elimine y existan pasos después el número solo se reemplaza
     eliminarPaso.addEventListener('click', () => {
+        const titPasos = [...document.querySelectorAll(".paso-h2")];
+        const index = titPasos.indexOf(nuevoTitulo); // nuevoTitulo es el h2 del paso que se va a eliminar
         nuevoPaso.remove();
+        actualizarPasos(index);
     });
 
     //anidar los elementos dentro del div
