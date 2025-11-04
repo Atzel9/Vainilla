@@ -85,11 +85,11 @@ function agregarIngrediente(id, ingrediente){
     //Crear los elementos que estarán dentro del div
     //Span
     const spanNombre = document.createElement("span");
-    spanNombre.textContent = ingrediente;
+    spanNombre.textContent = ingrediente + ":";
     spanNombre.classList.add("span-ing");
     //Input number
     const inputNum = document.createElement("input");
-    inputNum.type = "number";
+    inputNum.type = "text";
     inputNum.min = "1";
     inputNum.value = "1";
     inputNum.classList.add("ipt-cantidad-ing");
@@ -106,11 +106,10 @@ function agregarIngrediente(id, ingrediente){
         { valor: 'l', texto: 'l' },
         { valor: 'ml', texto: 'ml' },
         { valor: 'fl oz', texto: 'fl oz' },
-        { valor: 'tsp', texto: 'cucharadita (tsp)' },
-        { valor: 'tbsp', texto: 'cucharada (tbsp)' },
+        { valor: 'tsp', texto: 'cucharadita(s) (tsp)' },
+        { valor: 'tbsp', texto: 'cucharada(s) (tbsp)' },
         { valor: 'cup', texto: 'taza (cup)' },
-        { valor: 'pinch', texto: 'pizca' },
-        { valor: 'dash', texto: 'dash' },
+        { valor: 'pizca', texto: 'pizca' },
         { valor: 'unidad', texto: 'unidad(es)' } // para huevos, vainas, hojas, etc.
     ];
 

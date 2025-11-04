@@ -48,6 +48,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
                 $sentencia->bind_param("s", $ingrediente);
                 if($sentencia->execute()) {
                     $mensaje = "Ingrediente añadido!";
+                    header("Location: admin.php?seccion=ingrediente");
                 } else {
                     $mensaje = "Ocurrio un error al registrar";
                 }
