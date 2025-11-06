@@ -92,9 +92,11 @@ function agregarIngrediente(id, ingrediente){
     inputNum.type = "text";
     inputNum.min = "1";
     inputNum.value = "1";
+    inputNum.name = "ingrediente[]";
     inputNum.classList.add("ipt-cantidad-ing");
     //Input tipo de unidad
     const tipUnidad = document.createElement("select");
+    tipUnidad.name = "unidad[]";
     tipUnidad.classList.add("tipo-unidad");
 
     const valores = [

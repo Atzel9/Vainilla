@@ -93,6 +93,6 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
     <!-- Acceso a javascript-->
     <script src="../js/app.js"></script>
     <!-- Script para las recetas-->
-    <script src="../js/receta.js"></script>
+    <script src="../js/crear.js"></script>
 </body>
 </html>
