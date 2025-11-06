@@ -45,11 +45,23 @@ COLLATE=utf8mb4_unicode_ci;
 CREATE TABLE recetas_ingredientes (
     id_receta INT NOT NULL,
     id_ingrediente INT NOT NULL,
+    cantidad VARCHAR(100),
+    unidad VARCHAR(50),
 
     PRIMARY KEY (id_receta, id_ingrediente),
 
     FOREIGN KEY (id_receta) REFERENCES recetas(id) ON DELETE CASCADE,
     FOREIGN KEY (id_ingrediente) REFERENCES ingredientes(id) ON DELETE CASCADE
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE receta_pasos (
+    id INT AUTO_INCREMENT KEY,
+    id_receta INT NOT NULL,
+    orden INT,
+    
+    FOREIGN KEY (id_receta) REFERENCES recetas (id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_unicode_ci;
