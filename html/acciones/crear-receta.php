@@ -67,7 +67,31 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
             $sentencia_pasos->execute();
             $sentencia_pasos->close();
         }
-        header("Location: ../receta.php?id=$id_rcta_creada");
+        
+        //Obtener rol de usuario
+        $sql_usuario_rol = "SELECT rol FROM usuarios WHERE id = ?";
+        $sentencian_usuario_rol = $conexion->prepare($sql_usuario_rol);
+        $sentencian_usuario_rol->bind_param("i", $id_usuario_rta);
+        $sentencian_usuario_rol->execute();
+
+        $resultado_usuario_rol = $sentencian_usuario_rol->get_result();
+        $usuario_rol = $resultado_usuario_rol->fetch_assoc();
+
+        if($usuario_rol['rol'] === 'admin') { //SI ES ADMIN LA RECETA SE SUBE SIN NECESIDAD DE REVISIÓN
+            $estado = 'aceptada';
+            $sql_rec = "INSERT INTO recetas (estado) VALUES (?)";
+            $stmt = $conexion->prepare($sql_rec);
+            $stmt->bind_param("s", $estado);
+            $stmt->execute();
+            $stmt->close();
+        } else if ($usuario_rol['rol'] === 'user') { //SI ES USUARIO SE SUBE A ESTADO PENDIENTE PARA QUE UN ADMIN LO ACEPTE
+            $estado = 'pendiente';
+            $sql_rec = "INSERT INTO recetas (estado) VALUES (?)";
+            $stmt = $conexion->prepare($sql_rec);
+            $stmt->bind_param("s", $estado);
+            $stmt->execute();
+            $stmt->close();
+        }
     }
 } else {
     header("Location: ../../index.php");
