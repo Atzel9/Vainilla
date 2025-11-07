@@ -59,6 +59,7 @@ COLLATE=utf8mb4_unicode_ci;
 CREATE TABLE receta_pasos (
     id INT AUTO_INCREMENT KEY,
     id_receta INT NOT NULL,
+    texto TEXT,
     orden INT,
     
     FOREIGN KEY (id_receta) REFERENCES recetas (id) ON DELETE CASCADE ON UPDATE CASCADE
