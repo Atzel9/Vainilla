@@ -5,7 +5,7 @@ require_once "../../conexion.php";
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     //Crear receta para obtener el id de la receta
     //Obtener todos los datos de la receta
-    $nombre_rta = $_POST['receta'] ?? null;
+    $nombre_rta = $_POST['titulo'] ?? null;
     //Ruta de base de datos por defecto por si no se sube una imagen
     $url_bd = 'img/uploads/recetas_imagen/defecto.jpg';
     $minutos = $_POST['minuto'];
@@ -61,7 +61,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $pasos = $_POST['paso'];
 
         foreach($pasos as $paso) {
-            $sql_pasos = "INSERT INTO receta_pasos (id_receta, texto)";
+            $sql_pasos = "INSERT INTO receta_pasos (id_receta, texto) VALUES (?, ?)";
             $sentencia_pasos = $conexion->prepare($sql_pasos);
             $sentencia_pasos->bind_param("is", $id_rcta_creada, $paso);
             $sentencia_pasos->execute();
@@ -71,28 +71,24 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         //Obtener rol de usuario
         $sql_usuario_rol = "SELECT rol FROM usuarios WHERE id = ?";
         $sentencian_usuario_rol = $conexion->prepare($sql_usuario_rol);
-        $sentencian_usuario_rol->bind_param("i", $id_usuario_rta);
+        $sentencian_usuario_rol->bind_param("i", $_SESSION['usuario_id']);
         $sentencian_usuario_rol->execute();
 
         $resultado_usuario_rol = $sentencian_usuario_rol->get_result();
         $usuario_rol = $resultado_usuario_rol->fetch_assoc();
 
         if($usuario_rol['rol'] === 'admin') { //SI ES ADMIN LA RECETA SE SUBE SIN NECESIDAD DE REVISIÓN
-            $estado = 'aceptada';
-            $sql_rec = "INSERT INTO recetas (estado) VALUES (?)";
-            $stmt = $conexion->prepare($sql_rec);
-            $stmt->bind_param("s", $estado);
-            $stmt->execute();
-            $stmt->close();
+            $estado = 'aprobada';
         } else if ($usuario_rol['rol'] === 'user') { //SI ES USUARIO SE SUBE A ESTADO PENDIENTE PARA QUE UN ADMIN LO ACEPTE
             $estado = 'pendiente';
-            $sql_rec = "INSERT INTO recetas (estado) VALUES (?)";
-            $stmt = $conexion->prepare($sql_rec);
-            $stmt->bind_param("s", $estado);
-            $stmt->execute();
-            $stmt->close();
         }
+        $sql_rec = "UPDATE recetas SET estado = ? WHERE id_usuario = ?";
+        $stmt = $conexion->prepare($sql_rec);
+        $stmt->bind_param("si", $estado, $_SESSION['usuario_id']);
+        $stmt->execute();
+        $stmt->close();
     }
+    $sentencia_rcta->close();
 } else {
     header("Location: ../../index.php");
 }

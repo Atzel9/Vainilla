@@ -45,8 +45,8 @@ COLLATE=utf8mb4_unicode_ci;
 CREATE TABLE recetas_ingredientes (
     id_receta INT NOT NULL,
     id_ingrediente INT NOT NULL,
-    cantidad VARCHAR(100),
     unidad VARCHAR(50),
+    cantidad VARCHAR(100),
 
     PRIMARY KEY (id_receta, id_ingrediente),
 
