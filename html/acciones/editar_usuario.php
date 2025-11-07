@@ -1,5 +1,5 @@
 <?php
-require_once "../conexion.php";
+require_once "../../conexion.php";
 
 /* 1) Validar parámetro id */
 $id = isset($_GET["id"]) ? (int)$_GET["id"] : 0;

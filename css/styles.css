@@ -95,10 +95,10 @@ ul {
     display: flex;
     gap: 5px;
 }
-.usuario i, .usuario p, .login a {transition: all 0.2s ease;}
+.usuario i, .usuario p, .login a, .admin i {transition: all 0.2s ease;}
 
 .usuario:hover i, .usuario:hover p,
-.iniciar-sesion:hover, .registrarse:hover {color: var(--cornsilk);}
+.iniciar-sesion:hover, .registrarse:hover, .admin:hover {color: var(--cornsilk);}
 
 .configuracion i {
     display: inline-block;
@@ -108,6 +108,9 @@ ul {
 .configuracion:hover i {
     color: var(--cornsilk);
     transform: rotate(90deg);
+}
+.admin {
+    font-size: 1.2em;
 }
 .login {
     display: flex;

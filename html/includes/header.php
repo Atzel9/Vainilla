@@ -1,5 +1,20 @@
 <?php 
 $usuario_nombre = $_SESSION['usuario_nombre'] ?? null;
+$id_perfil = $_SESSION['usuario_id'] ?? null;
+$is_admin = false;
+
+if(isset($_SESSION['usuario_id'])) {
+    $consultaRol = $conexion->prepare("SELECT rol FROM usuarios WHERE id = ?");
+    $consultaRol->bind_param("i", $id_perfil);
+    $consultaRol->execute();
+    $resultadoRol = $consultaRol->get_result();
+    $pefil_rol = $resultadoRol->fetch_assoc();
+
+    if($pefil_rol['rol'] === 'admin') {
+        $is_admin = true;
+    }
+}
+
 ?>
 <header id="header">
     <div class="div-inicio">
@@ -13,6 +28,9 @@ $usuario_nombre = $_SESSION['usuario_nombre'] ?? null;
             <div class="index-perfil">
                 <a href="/bootcamp/Vainilla/html/perfil.php" class="usuario"><i class="ph ph-user"></i><p><?=htmlspecialchars($usuario_nombre)?></p></a>
                 <a href="/bootcamp/Vainilla/html/configuracion.php" class="configuracion"><i class="ph ph-gear"></i></a>
+                <?php if($is_admin): ?>
+                    <a href="/bootcamp/Vainilla/html/admin.php" class="admin"><i class="ph ph-sliders-horizontal"></i></a>
+                <?php endif; ?>
             </div>
         <?php else : ?>
             <div class="login">

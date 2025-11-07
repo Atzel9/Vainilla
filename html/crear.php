@@ -44,16 +44,23 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
     <?php require_once "includes/header.php";?> 
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main">
-        <form action="crear-receta.php" class="form-rec">
+        <form method="post" action="acciones/crear-receta.php" class="form-rec">
             <div class="form-rec-datos">
                 <label for="imagen">
-                    <input type="file" accept="image/jpg, image/jpg, image/png, image/webp">
+                    <input name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp" encytype="multipar/form-data">
                 </label>
                 <label for="titulo">
                     <input type="text" name="titulo" placeholder="Nombre de la receta" required>
                 </label>
             </div>
             <div class="form-rec-txt">
+                <div class="form-rec-tie">
+                    <h2>Tiempo de preaparado</h2>
+                    <label for="horas"><p>Horas:</p></label>
+                    <input type="number" value="0" max="24" min="0" name="hora">
+                    <label for="minutos"><p>Minutos:</p></label>
+                    <input type="number" value="1" max="59" min="1" name="minuto">
+                </div>
                 <div class="for-rec-ing">
                     <!--Lista de contenedor que contiene los ingredientes agregados-->
                     <div id="ingredientes-seleccionados">
