@@ -87,16 +87,21 @@ function agregarIngrediente(id, ingrediente){
     const spanNombre = document.createElement("span");
     spanNombre.textContent = ingrediente + ":";
     spanNombre.classList.add("span-ing");
+    //Input hidden para el ingrediente
+    const hiddenIng = document.createElement("input");
+    hiddenIng.type = "hidden";
+    hiddenIng.value = id;
+    hiddenIng.name = "ingredientes[]";
     //Input number
     const inputNum = document.createElement("input");
     inputNum.type = "text";
     inputNum.min = "1";
     inputNum.value = "1";
-    inputNum.name = "ingrediente[]";
+    inputNum.name = "unidad[]";
     inputNum.classList.add("ipt-cantidad-ing");
     //Input tipo de unidad
     const tipUnidad = document.createElement("select");
-    tipUnidad.name = "unidad[]";
+    tipUnidad.name = "cantidad[]";
     tipUnidad.classList.add("tipo-unidad");
 
     const valores = [
@@ -141,6 +146,7 @@ function agregarIngrediente(id, ingrediente){
 
     //Anidar los elementos
     nuevoContIng.appendChild(spanNombre);
+    nuevoContIng.append(hiddenIng);
     nuevoContIng.appendChild(inputNum);
     nuevoContIng.appendChild(tipUnidad);
     nuevoContIng.appendChild(eliminarIng);
