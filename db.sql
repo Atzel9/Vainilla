@@ -66,3 +66,14 @@ CREATE TABLE receta_pasos (
 ) ENGINE=InnoDB
 DEFAULT CHARSET=utf8mb4
 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE recetas_calificaciones (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_receta INT NOT NULL,
+    id_usuario INT NOT NULL,
+
+    calificacion TINYINT,
+    creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_unicode_ci;
