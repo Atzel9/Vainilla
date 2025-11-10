@@ -7,23 +7,27 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     //Obtener todos los datos de la receta
     $nombre_rta = $_POST['titulo'] ?? null;
     //Ruta de base de datos por defecto por si no se sube una imagen
-    $url_bd = 'img/uploads/recetas_imagen/defecto.jpg';
+    $url_bd = 'img/uploads/recetas_imagen/defecto.svg';
     $minutos = $_POST['minuto'];
     $horas = $_POST['hora'] ?? null;
     $tiempo = null;
     $id_usuario_rta = $_SESSION['usuario_id'];
 
     //Verificar si el usuario subio una imagen, si no, la imagen por defecto sigue siendo la misma
-    if (isset($_FILES['imagen-receta']) && $_FILES['imagen-receta']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['imagen-receta']) && $_FILES['imagen-receta']['error'] === 0) {
         $ruta_bd = '../../img/uploads/recetas_imagen/';
         $imagen_og = basename($_FILES['imagen-receta']['name']);
         $extension = pathinfo($imagen_og, PATHINFO_EXTENSION);
         $nombre_unico = uniqid() . "." . $extension;
         $destino_servidor = $ruta_bd . $nombre_unico;
         $ruta_web_archivo = 'img/uploads/recetas_imagen/' . $nombre_unico;
-
+        $url_bd = $ruta_web_archivo;
+        // Mover el archivo del temporal al destino real
         if (move_uploaded_file($_FILES['imagen-receta']['tmp_name'], $destino_servidor)) {
-            $url_bd = $ruta_web_archivo; 
+            $url_bd = $ruta_web_archivo; // Solo se cambia si se subió correctamente
+        } else {
+            // Si falla, se mantiene la imagen por defecto
+            $url_bd = 'img/uploads/recetas_imagen/defecto.svg';
         }
     }
 

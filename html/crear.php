@@ -44,10 +44,10 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
     <?php require_once "includes/header.php";?> 
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main">
-        <form method="post" action="acciones/crear-receta.php" class="form-rec">
+        <form method="post" action="acciones/crear-receta.php" class="form-rec" enctype="multipart/form-data">
             <div class="form-rec-datos">
                 <label for="imagen">
-                    <input name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp" encytype="multipar/form-data">
+                    <input name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp">
                 </label>
                 <label for="titulo">
                     <input type="text" name="titulo" placeholder="Nombre de la receta" required>

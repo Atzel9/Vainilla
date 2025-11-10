@@ -89,3 +89,48 @@ iptBus.addEventListener("input", function(){
         });
     }
 });
+
+//Botones para cambiar las recetas de 'Todas', 'Aprobadas' y 'Pendientes
+//Declarar botones
+const btnTodas = document.getElementById("btn-recTodas");
+const btnAprob = document.getElementById("btn-recAprob");
+const btnPend = document.getElementById("btn-recPend");
+//Declarar los contenedores
+const divTodas = document.getElementById("todas-recetas");
+const divAprob = document.getElementById("aceptadas-recetas");
+const divPend = document.getElementById("pendientes-recetas");
+const divMensaje = document.getElementById("mensaje");
+
+//Evento para los 3 botones
+btnTodas.addEventListener("click", function() {
+    btnTodas.classList.add("btn-activo");
+    divTodas.style.display = "flex";
+
+    btnAprob.classList.remove("btn-activo");
+    divAprob.style.display = "none";
+    btnPend.classList.remove("btn-activo");
+    divPend.style.display = "none";
+    divMensaje.style.display = "none";
+});
+
+btnAprob.addEventListener("click", function() {
+    btnAprob.classList.add("btn-activo");
+    divAprob.style.display = "flex";
+
+    btnTodas.classList.remove("btn-activo");
+    divTodas.style.display = "none";
+    btnPend.classList.remove("btn-activo");
+    divPend.style.display = "none";
+    divMensaje.style.display = "none";
+});
+
+btnPend.addEventListener("click", function() {
+    btnPend.classList.add("btn-activo");
+    divPend.style.display = "flex";
+
+    btnAprob.classList.remove("btn-activo");
+    divAprob.style.display = "none";
+    btnTodas.classList.remove("btn-activo");
+    divTodas.style.display = "none";
+    divMensaje.style.display = "none";
+});
