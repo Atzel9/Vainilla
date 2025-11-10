@@ -69,19 +69,21 @@ $sql_ingredientes = $conexion->query(
     );
 /* Seleccionar datos de la tabla recetas aprobadas */
 $sql_recetas = $conexion->query(
-    "SELECT r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
-            u.nombre AS nombre_usuario
+    "SELECT 
+    r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
+    u.nombre AS nombre_usuario
     FROM recetas r
-    INNER JOIN  usuarios u ON r.id_usuario
+    INNER JOIN  usuarios u ON r.id_usuario = u.id
     ORDER BY r.id DESC"
 );
 /* Seleccionar datos de la tabla recetas pendientes */
-$sql_recetas_pendientes = $conexion->query(
-    "SELECT r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
-            u.nombre AS nombre_usuario
+$sql_recetas_aprobada = $conexion->query(
+    "SELECT 
+    r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
+    u.nombre AS nombre_usuario
     FROM recetas r
-    INNER JOIN  usuarios u ON r.id_usuario
-    WHERE estado = 'pendiente'
+    INNER JOIN  usuarios u ON r.id_usuario = u.id
+    WHERE estado = 'aprobada'
     ORDER BY id DESC"
 );
 /* Seleccionar datos de la tabla usuarios */
@@ -222,27 +224,27 @@ $seccion = $_GET['seccion'] ?? "";
                         <?php endwhile; ?>
                 </div>
                 <div id="aceptadas-recetas" class="div-recetas">
-                        <?php while($cont_rec = $sql_recetas_pendientes->fetch_assoc()):?>
+                        <?php while($cont_rec_aprob = $sql_recetas_aprobada->fetch_assoc()):?>
                             <div class="card">
-                                <a href="receta.php?<?=(int)$cont_rec["id"]?>">
+                                <a href="receta.php?<?=(int)$cont_rec_aprob["id"]?>">
                                     <div class="img">
-                                        <img src="../<?=htmlspecialchars($cont_rec["imagen"])?>" class="img">
+                                        <img src="../<?=htmlspecialchars($cont_rec_aprob["imagen"])?>" class="img">
                                     </div>
                                     <div class="texto">
-                                        <div><h3><?=htmlspecialchars($cont_rec["nombre"])?></h3></div>
+                                        <div><h3><?=htmlspecialchars($cont_rec_aprob["nombre"])?></h3></div>
                                         <div class="otros">
-                                            <div class="usuario"><h2><?=htmlspecialchars($cont_rec["nombre_usuario"])?></h2></div>
+                                            <div class="usuario"><h2><?=htmlspecialchars($cont_rec_aprob["nombre_usuario"])?></h2></div>
                                             <div class="detalles">
                                                 <div class="tiempo">
-                                                    <?php if($cont_rec["tiempo"] > 60):?>
+                                                    <?php if($cont_rec_aprob["tiempo"] > 60):?>
                                                         <!--Separar la horas de los minutos-->
                                                         <?php 
-                                                        $horas = intval($cont_rec["tiempo"] / 60);  
-                                                        $minutos = $cont_rec["tiempo"] % 60;
+                                                        $horas = intval($cont_rec_aprob["tiempo"] / 60);  
+                                                        $minutos = $cont_rec_aprob["tiempo"] % 60;
                                                         ?>
                                                         <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min</p>
                                                     <?php else: ?>
-                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($cont_rec["tiempo"])?> min</p>
+                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($cont_rec_aprob["tiempo"])?> min</p>
                                                     <?php endif;?>
                                                 </div>
                                                 <div class="calificacion">
