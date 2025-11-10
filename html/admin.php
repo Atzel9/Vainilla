@@ -76,7 +76,7 @@ $sql_recetas = $conexion->query(
     INNER JOIN  usuarios u ON r.id_usuario = u.id
     ORDER BY r.id DESC"
 );
-/* Seleccionar datos de la tabla recetas pendientes */
+/* Seleccionar datos de la tabla recetas aprobadas */
 $sql_recetas_aprobada = $conexion->query(
     "SELECT 
     r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
@@ -84,6 +84,16 @@ $sql_recetas_aprobada = $conexion->query(
     FROM recetas r
     INNER JOIN  usuarios u ON r.id_usuario = u.id
     WHERE estado = 'aprobada'
+    ORDER BY id DESC"
+);
+/* Seleccionar datos de la tabla recetas pendientes */
+$sql_recetas_pendiente = $conexion->query(
+    "SELECT 
+    r.id, r.nombre, r.imagen, r.id_usuario, r.tiempo, r.creado_en,
+    u.nombre AS nombre_usuario
+    FROM recetas r
+    INNER JOIN  usuarios u ON r.id_usuario = u.id
+    WHERE estado = 'pendiente'
     ORDER BY id DESC"
 );
 /* Seleccionar datos de la tabla usuarios */
@@ -100,7 +110,7 @@ $seccion = $_GET['seccion'] ?? "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vainilla: Lo dulce de la tradición</title>
+    <title>Panel de administración</title>
     <!--Icono de la página-->
     <link rel="icon" type="image/x-icon" href="/bootcamp/Vainilla/img/icono.png">
     <!--Link para ingresar a los estilos-->
@@ -192,7 +202,7 @@ $seccion = $_GET['seccion'] ?? "";
                 <div id="todas-recetas" class="div-recetas">
                         <?php while($cont_rec = $sql_recetas->fetch_assoc()):?>
                             <div class="card">
-                                <a href="receta.php?<?=(int)$cont_rec["id"]?>">
+                                <a href="receta.php?id=<?=(int)$cont_rec["id"]?>">
                                     <div class="img">
                                         <img src="../<?=htmlspecialchars($cont_rec["imagen"])?>" class="img">
                                     </div>
@@ -226,7 +236,7 @@ $seccion = $_GET['seccion'] ?? "";
                 <div id="aceptadas-recetas" class="div-recetas">
                         <?php while($cont_rec_aprob = $sql_recetas_aprobada->fetch_assoc()):?>
                             <div class="card">
-                                <a href="receta.php?<?=(int)$cont_rec_aprob["id"]?>">
+                                <a href="receta.php?id=<?=(int)$cont_rec_aprob["id"]?>">
                                     <div class="img">
                                         <img src="../<?=htmlspecialchars($cont_rec_aprob["imagen"])?>" class="img">
                                     </div>
@@ -258,6 +268,38 @@ $seccion = $_GET['seccion'] ?? "";
                         <?php endwhile; ?>
                 </div>
                 <div id="pendientes-recetas" class="div-recetas">
+                        <?php while($cont_rec_pend = $sql_recetas_pendiente->fetch_assoc()):?>
+                            <div class="card">
+                                <a href="receta.php?id=<?=(int)$cont_rec_pend["id"]?>">
+                                    <div class="img">
+                                        <img src="../<?=htmlspecialchars($cont_rec_pend["imagen"])?>" class="img">
+                                    </div>
+                                    <div class="texto">
+                                        <div><h3><?=htmlspecialchars($cont_rec_pend["nombre"])?></h3></div>
+                                        <div class="otros">
+                                            <div class="usuario"><h2><?=htmlspecialchars($cont_rec_pend["nombre_usuario"])?></h2></div>
+                                            <div class="detalles">
+                                                <div class="tiempo">
+                                                    <?php if($cont_rec_pend["tiempo"] > 60):?>
+                                                        <!--Separar la horas de los minutos-->
+                                                        <?php 
+                                                        $horas = intval($cont_rec_pend["tiempo"] / 60);  
+                                                        $minutos = $cont_rec_pend["tiempo"] % 60;
+                                                        ?>
+                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min</p>
+                                                    <?php else: ?>
+                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($cont_rec_pend["tiempo"])?> min</p>
+                                                    <?php endif;?>
+                                                </div>
+                                                <div class="calificacion">
+                                                    <p><i class="ph ph-star"></i>5.0</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php endwhile; ?>
                 </div>
                 <div id="mensaje">
                     <p>Elige que estado de la receta quieres ver</p>

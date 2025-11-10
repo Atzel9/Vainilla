@@ -1,6 +1,7 @@
 <?php 
 require_once "../../conexion.php";
 $error = $_GET["error"] ?? "";
+$tipo = $_GET["tipo"] ?? "";
 if ($error == "") {
     header("Location: /bootcamp/Vainilla/index.php");
 }
@@ -47,7 +48,15 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
         <?php elseif($error === "rol"): ?>
             <p>No tienes permiso para acceder a esta página.</p>
             <a href="../../index.php" class="regresar">Regresar a página principal</a>
-        <?php endif?>
+        <?php elseif($error === "receta"):?>
+            <?php if($tipo === "null"): ?>
+                <p>Esta receta no existe.</p>
+                <a href="../../index.php" class="regresar">Regresar a página principal</a>
+            <?php elseif( $tipo="ejecutar" ):?>
+                <p>Error el ejecutar la receta.</p>
+                <a href="../../index.php" class="regresar">Regresar a página principal</a>
+            <?php endif; ?>
+        <?php endif;?>
     </main>
     <?php require_once "../includes/footer.php" ?>
     <?php require_once "../includes/nav-mobil.php" ?>
