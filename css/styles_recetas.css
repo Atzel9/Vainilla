@@ -1,0 +1,121 @@
+.main-receta {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+.opciones {
+    position: fixed;
+    display: flex;
+    width: 200px;
+    margin-top: 10px;
+    padding: 16px 8px;
+    justify-content: space-around;
+    background: rgb(254, 223, 119, 0.80);
+    border-radius: 33px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
+    border-radius: 26px;
+    z-index: 200;
+    transition: all 0.5s ease;
+}
+.info-receta {
+    margin-right: auto;
+}
+.div-img {
+    height: 40vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.div-img img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+.texto-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 15px 5px;
+    width: 90%;
+}
+.texto-info p {
+    display: block;
+}
+/*ESTILO VENTANA MODAL*/
+.modal-receta {
+    position: fixed;
+    visibility: 0;
+    opacity: 0;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, display 0.3s ease-in-out, z-index 0.1s ease-in-out;
+}
+.ventana-modal {
+    border-radius: 12px;
+    background-color: var(--fondo);
+}
+.texto {
+    margin: 30px 25px;
+}
+.activo-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    visibility: visible;
+    opacity: 100;
+}
+/*ESTILOS A ELEMENTOS DE ADMIN*/
+#admin-cerrar {
+    display: flex;
+    width: 100%;
+    background: none;
+    border: none;
+}
+#admin-cerrar i {
+    width: 25px;
+    margin-left: auto;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: var(--color_pri);
+    color: var(--cornsilk);
+}
+/*RESPONSIVO*/
+@media screen and (min-width: 426px) {
+    .main-receta {
+        flex-direction: column;
+    }
+    .opciones {
+        position: sticky;
+        top: 10px;
+        width: 400px;
+    }
+    .info-receta {
+        padding-top: 20px;
+    }
+}
+@media screen and (min-width: 769px) {
+    .main-receta {
+        padding-left: 110px;
+    }
+    .opciones {
+        top: 133px;
+        margin-top: 20px;
+    }
+    .div-img {
+        height: 70vh;
+    }
+}
