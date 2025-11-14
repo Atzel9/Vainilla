@@ -46,9 +46,10 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
     <main class="main">
         <form method="post" action="acciones/crear-receta.php" class="form-rec" enctype="multipart/form-data">
             <div class="form-rec-datos">
-                <label for="imagen">
-                    <input name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp">
-                </label>
+                <div class="div-imagen">
+                    <input id="subirimagen" name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp">
+                    <label class="labelimg" for="subirimagen">Subir imagen de la receta</label>
+                </div>
                 <label for="titulo">
                     <input type="text" name="titulo" placeholder="Nombre de la receta" required>
                 </label>

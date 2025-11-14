@@ -247,3 +247,35 @@ btnAgregarPaso.addEventListener('click', function() {
         ultimoPaso.placeholder = "Escribe las instrucciones!!!...";
     }
 });
+/*c) ----SECCIÓN---- */
+/*
+1.Mostrar imagen si se sube
+*/
+
+document.addEventListener("DOMContentLoaded", () =>{
+    //Encontrar los elementos
+    const inputImg = document.getElementById("subirimagen");
+    const contImg = document.querySelector(".div-imagen");
+    const txtImg = document.querySelector(".labelimg");
+
+    //Evento que detecta cuando el estado 'cambia'
+    inputImg.addEventListener("change", e => {
+        //Seleccionar la imagen
+        const archivo = e.target.files[0];
+
+        if(archivo && archivo.type.startsWith("image/")) {
+            //Variable que lee el nombre del archivo
+            const lector = new FileReader();
+            //Cuando la variable 'lector' este cargando
+            lector.onload = () => {
+                //Cambiar estilo para cuando se suba
+                contImg.style.backgroundImage = `url(${lector.result})`;
+                contImg.style.backgroundSize = "cover";
+                contImg.style.backgroundPosition = "center";
+                txtImg.style.display = "none";
+            };
+            //Se indica que se lea como tipo archivo URL
+            lector.readAsDataURL(archivo);
+        }
+    });
+});
