@@ -57,8 +57,11 @@ h1, h2, h3 {
     display: flex;
     flex-direction: row;
     border: 2px solid var(--color_pri);
-    padding: 10px 0;
+    padding: 5px 0;
+    border-radius: 5px;
+    gap: 5px;
 }
+
 .tiempo:first-child {
     text-align: right;
 }
@@ -92,6 +95,10 @@ h1, h2, h3 {
     font-size: 0.8em;
 }
 .form-rec-tie h2 {width: 100%;}
+/*Inicio estilos a pildoras de ingredientes y lista de ingredientes*/
+.form-rec-ing {
+    margin-left: 10px;
+}
 #lis-rec {
     display: flex;
     flex-direction: column;
@@ -113,6 +120,7 @@ h1, h2, h3 {
     position: sticky;
     top: 0;
 }
+/*Inicio estilo a textarea*/
 .textarea {
     resize: none;
     width: 50%;
