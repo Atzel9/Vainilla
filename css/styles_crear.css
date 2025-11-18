@@ -1,21 +1,26 @@
-.main {
+h1, h2, h3 {
+    font-family: var(--alegraya); /*Cambiar fondo*/
+}
+.main { /*Estilos al contenedor principal del contenedor*/
     display: flex;
     flex-direction: column;
-    padding: 20px 10px;
 }
-.div-imagen {
+.form-rec-datos {
+    margin: auto 10px;
+}
+.div-imagen { /*Estilo al contenedor de la imagen*/
     position: relative;
     width: 300px;
     height: 250px;
     border: 2px dashed var(--color_pri);
-    border-radius: 12px;
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fafafa;
     cursor: pointer;
     overflow: hidden;
-    margin: 10px auto;
+    margin: 10px;
     transition: border 0.2s ease;
 }
 .div-imagen input[type="file"] {
@@ -31,10 +36,66 @@
     background-color: #e6f7ff;
     border-color: #00b4d8;
 }
+.titulo {
+    border-radius: 10px;
+    padding: 5px;
+    width: 100%;
+    border: 2px solid var(--gris);
+    transition: border 0.2s ease;
+}
+.titulo:focus, .titulo:focus-visible {
+    border: 2px solid var(--color_pri);
+    outline: none;
+}
+.form-rec-tie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-left: 10px;
+}
+.div-tie-prin {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid var(--color_pri);
+    padding: 10px 0;
+}
+.tiempo:first-child {
+    text-align: right;
+}
+.tiempo {
+    border: none;
+    max-width: 30px;
+    background: none;
+    font-size: 1.2em;
+}
+.tiempo:focus, .tiempo:focus-visible {
+    outline: none;
+}
+/* Quitar flechas del input tipo numero */
+.tiempo::-webkit-outer-spin-button,
+.tiempo::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* For Firefox */
+.tiempo[type=number] {
+    -moz-appearance: textfield;
+}
+/* General fallback */
+.tiempo[type=number] {
+    appearance: textfield;
+}
+/*Estilo a parrafo de formato*/
+.formato-tiempo {
+    width: 100%; /*Para que se vaya hasta abajo gracias a la propiedad flex*/
+    color: var(--gris);
+    font-size: 0.8em;
+}
+.form-rec-tie h2 {width: 100%;}
 #lis-rec {
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
 }
 .lista-desactiva {
     max-height: 0px;
