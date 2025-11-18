@@ -44,25 +44,29 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
     <?php require_once "includes/header.php";?> 
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main">
+        <h1>Crear nueva receta</h1>
         <form method="post" action="acciones/crear-receta.php" class="form-rec" enctype="multipart/form-data">
             <div class="form-rec-datos">
                 <div class="div-imagen">
                     <input id="subirimagen" name="imagen-receta" type="file" accept="image/jpg, image/jpg, image/png, image/webp">
                     <label class="labelimg" for="subirimagen">Subir imagen de la receta</label>
                 </div>
+                <h2>Titulo:</h2>
                 <label for="titulo">
-                    <input type="text" name="titulo" placeholder="Nombre de la receta" required>
+                    <input class="titulo" type="text" name="titulo" placeholder="Nombre de la receta" required>
                 </label>
             </div>
             <div class="form-rec-txt">
                 <div class="form-rec-tie">
-                    <h2>Tiempo de preaparado</h2>
-                    <label for="horas"><p>Horas:</p></label>
-                    <input type="number" value="0" max="24" min="0" name="hora">
-                    <label for="minutos"><p>Minutos:</p></label>
-                    <input type="number" value="1" max="59" min="1" name="minuto">
+                    <h2>Tiempo de preparado</h2>
+                    <div class="div-tie-prin">
+                            <input class="tiempo" type="number" value="0" max="24" min="0" name="hora">
+                            <p>:</p>
+                            <input class="tiempo" type="number" value="1" max="59" min="01" name="minuto">
+                    </div>
+                    <p class="formato-tiempo">Formato: HH:MM</p>
                 </div>
-                <div class="for-rec-ing">
+                <div class="form-rec-ing">
                     <!--Lista de contenedor que contiene los ingredientes agregados-->
                     <div id="ingredientes-seleccionados">
 
