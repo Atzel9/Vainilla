@@ -6,7 +6,7 @@ h1, h2, h3 {
     flex-direction: column;
 }
 .form-rec-datos {
-    margin: auto 10px;
+    margin: 12px 10px;
 }
 .div-imagen { /*Estilo al contenedor de la imagen*/
     position: relative;
@@ -40,18 +40,18 @@ h1, h2, h3 {
     border-radius: 10px;
     padding: 5px;
     width: 100%;
-    border: 2px solid var(--gris);
+    border: 2px solid var(--color_pri);
     transition: border 0.2s ease;
 }
 .titulo:focus, .titulo:focus-visible {
-    border: 2px solid var(--color_pri);
+    border: 2px solid var(--gris);
     outline: none;
 }
 .form-rec-tie {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin-left: 10px;
+    margin: 15px 10px;
 }
 .div-tie-prin {
     display: flex;
@@ -60,6 +60,7 @@ h1, h2, h3 {
     padding: 5px 0;
     border-radius: 5px;
     gap: 5px;
+    box-shadow: 3px 3px 2px 0px rgba(0,0,0,0.1); /*Efecto sombra*/
 }
 
 .tiempo:first-child {
@@ -99,29 +100,140 @@ h1, h2, h3 {
 .form-rec-ing {
     margin-left: 10px;
 }
-#lis-rec {
+.btn-lista-ing {
+    width: 250px;
+    padding: 6px 16px; /*Espaciado interno*/
+    background-color: var(--color_pri); /*Color de fondo*/
+    border: none; /*Sin borde*/
+    border-radius: 5px; /*Esquinas redondas*/
+    font-weight: bold;
+    box-shadow: 3px 3px 2px 0px rgba(0,0,0,0.1); /*Efecto sombra*/
+    transition: transform 0.3s ease; /*Movimiento mas suave*/
+}
+.btn-lista-ing i {font-weight: bold;}
+.btn-lista-ing:active {
+    transform: translateY(5px);
+}
+#lis-rec { /*Lista de recetas*/
     display: flex;
     flex-direction: column;
     position: absolute;
+    margin-top: 10px;
+    width: 250px;
+    border: 2px solid var(--color_pri);
+    border-radius: 5px;
+    background-color: var(--fondo);
+}
+.div-rec-buscador {
+    width: 100%;
+}
+#buscador-ingrediente {
+    width: 100%;
+    margin-bottom: 5px;
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    border: 2px solid var(--gris);
+    border-radius: 5px;
+}
+#buscador-ingrediente:focus, #buscador-ingrediente:focus-visible {
+    outline: none;
+}
+.contenedor-lista-ing {
+    display: flex;
+    flex-direction: column;
 }
 .lista-desactiva {
     max-height: 0px;
     overflow: hidden;
-    transition: all 0.5s ease;
+    transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    padding: 10px 5px;
+    box-shadow: none;
 }
 .lista-activa {
+    opacity: 1;
     max-height: 450px;
     display: flex;
     height: auto;
-    transition: all 0.5s ease;
     overflow: auto;
+    padding: 10px 5px;
+    box-shadow: 5px 5px 10px 5px rgba(0,0,0,0.1);
+    transition: max-height 0.5s ease, padding 0.5s ease, opacity 0.5s ease;
 }
-#buscador-ingrediente {
-    position: sticky;
-    top: 0;
+.lista-ing {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    border-top: 1px solid #6f6f6f;
+}
+.agregar-ingrediente {
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.agregar-ingrediente i {
+    display: block;
+    padding: 5px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.agregar-ingrediente:hover {
+    background-color: var(--color_pri);
+}
+.agregar-ingrediente i:hover {
+    color: var(--cornsilk);
+}
+#ingredientes-seleccionados {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 50%;
+}
+.div-ing-seleccionado {
+    border-radius: 12px;
+    padding: 4px 15px;
+    background-color: var(--fondo);
+    border: 1px solid var(--color_pri);
+    box-shadow: 3px 3px 2px 0px rgba(0,0,0,0.1); /*Efecto sombra*/
+}
+.ipt-cantidad-ing {
+    max-width: 50px;
+}
+.tipo-unidad {
+    max-width: 50px;
+}
+.ipt-cantidad-ing, .tipo-unidad {
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.btn-eliminar-ing {
+    border-radius: 50%;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-eliminar-ing i {
+    display: block;
+    padding: 5px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.btn-eliminar-ing:hover {
+    color: #b51d1d;
 }
 /*Inicio estilo a textarea*/
 .textarea {
     resize: none;
     width: 50%;
+}
+/*INICIO MEDIA QUERIES*/
+@media screen and (min-width: 768px) {
+    .main {
+        width: 768px;
+    }
 }

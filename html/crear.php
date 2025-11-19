@@ -72,7 +72,7 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
 
                     </div>
                     <h2>Selecciona los ingredientes:</h2>
-                    <button id="btn-lista-ing" class="form-rec-ing" type="button">Lista de ingredientes <i class="ph ph-caret-down"></i></button>
+                    <button id="btn-lista-ing" class="btn-lista-ing" type="button">Lista de ingredientes <i class="ph ph-caret-down"></i></button>
                     <!--Lista de contenedor que contiene la lista de ingredientes y el buscador-->
                     <div id="lis-rec" class="lis-rec lista-desactiva">
                         <div class="div-rec-buscador">
