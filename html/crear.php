@@ -89,15 +89,15 @@ $sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); /
                     </div>
                 </div>
                 <div id="form-texto" class="form-rec-txt">
-                    <h2>Indica los pasos para hacer esta receta:</h2>
-                    <button id="crear-bloquetxt" class="crear-paso" type="button">Crear paso</button>
+                    <h2>Pasos de la receta</h2>
+                    <button id="crear-bloquetxt" class="crear-paso btn-estilo" type="button">Crear paso</button>
                     <div class="div-paso" data-paso="1">
                         <h2 class="paso-h2">Paso 1</h2>
                         <textarea class="textarea" name="paso[]" placeholder="Escribir instrucciones..."></textarea>
                     </div>
                 </div>
             </div>
-            <button class="form-rec-btn" type="submit">Subir receta</button>
+            <button class="form-rec-btn btn-estilo" type="submit">Subir receta</button>
         </form>
     </main>
     <?php require_once "includes/footer.php"; ?> 

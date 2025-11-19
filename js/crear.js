@@ -197,6 +197,11 @@ function anadirPaso(paso) {
     const eliminarPaso = document.createElement("button");
     eliminarPaso.classList.add("eliminar-paso");
     eliminarPaso.innerHTML = "<i class=\"ph ph-x\"></i>";
+    //Crear div dentro
+    const divInfo = document.createElement("div");
+    divInfo.classList.add("div-info-paso");
+    divInfo.appendChild(nuevoTitulo);
+    divInfo.appendChild(eliminarPaso);
     //Crear el textarea y el name
     const nuevoTextArea = document.createElement("textarea");
     nuevoTextArea.classList.add("textarea");
@@ -221,8 +226,7 @@ function anadirPaso(paso) {
     });
 
     //anidar los elementos dentro del div
-    nuevoPaso.appendChild(nuevoTitulo);
-    nuevoPaso.appendChild(eliminarPaso);
+    nuevoPaso.appendChild(divInfo);
     nuevoPaso.appendChild(nuevoTextArea);
 
     divPrincipal.appendChild(nuevoPaso);
