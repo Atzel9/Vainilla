@@ -91,6 +91,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param("si", $estado, $_SESSION['usuario_id']);
         $stmt->execute();
         $stmt->close();
+        header("Location: ../receta.php?id=$id_rcta_creada");
     }
     $sentencia_rcta->close();
 } else {

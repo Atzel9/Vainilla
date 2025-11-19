@@ -121,6 +121,7 @@ h1, h2, h3 {
     border: 2px solid var(--color_pri);
     border-radius: 5px;
     background-color: var(--fondo);
+    z-index: 10;
 }
 .div-rec-buscador {
     width: 100%;
