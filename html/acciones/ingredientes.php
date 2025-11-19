@@ -125,18 +125,22 @@ if($resultado->num_rows != 1) {
 </head>
 <body>
     <?php require_once "../includes/header.php"; ?>
-    <main class="main">
-        <h2><?=htmlspecialchars($nom_ing['nombre'])?></h2>
-        <h3 class="h3_ing">Número de identificación: #<?=htmlspecialchars($nom_ing['id'])?></h3>
-        <a href="../admin.php">Regresar a la página de administración</a>
+    <main class="main-ingrediente">
+        <a class="enlace-regresar" href="../admin.php?seccion=ingrediente"><i class="ph ph-arrow-left"></i>Regresar a la página de administración</a>
+        <h2>Ingrediente: <?=htmlspecialchars($nom_ing['nombre'])?></h2>
+        <h3 class="h3_ing">ID: #<?=htmlspecialchars($nom_ing['id'])?></h3>
+        <hr>
 
         <?php if($mensaje != ''): ?>
             <p><?=htmlspecialchars($mensaje)?></p>
         <?php endif; ?>
+        <h3 class="h3-ing">Editar nombre de ingrediente</h3>
         <form method="post" id="formulario">
-            <input type="text" value="<?=htmlspecialchars($nom_ing['nombre'])?>" required name="nombre">
-            <input id="editar" type="submit" name="Editar" value="Editar">
-            <input id="eliminar" type="submit" name="Eliminar" value="Eliminar">
+            <input class="input-ing" type="text" value="<?=htmlspecialchars($nom_ing['nombre'])?>" required name="nombre">
+            <div class="btn-ing">
+                <input class="editar-ing" id="editar" type="submit" name="Editar" value="Editar">
+                <input class="eliminar-ing" id="eliminar" type="submit" name="Eliminar" value="Eliminar">
+            </div>
             <input type="hidden" name="Eliminar" id="accion">
         </form>
     </main>
