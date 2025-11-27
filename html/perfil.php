@@ -45,7 +45,7 @@ $sql_rec =
     "SELECT r.* , u.nombre AS nombre_usuario
     FROM recetas r
     INNER JOIN usuarios u ON r.id_usuario = u.id
-    WHERE r.id = ?";
+    WHERE r.id_usuario = ?";
 $sentencia_rec = $conexion->prepare($sql_rec);
 $sentencia_rec->bind_param("i", $id);
 if($sentencia_rec->execute()) {
@@ -114,7 +114,7 @@ if($sentencia_rec->execute()) {
         </nav>
         <section class="recetas">
             <?php while($receta = $resultado_rec->fetch_assoc()): ?>
-                <p>A</p>
+                <p>A. prueba</p>
                 <p><?=htmlspecialchars($receta["nombre_usuario"])?></p>
                 <p><?=htmlspecialchars($receta["nombre"])?></p>
             <?php endwhile; ?>
