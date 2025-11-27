@@ -6,24 +6,51 @@ if (!isset($_SESSION["usuario_id"])) {
     exit;
 }
 
-/* Solicitar Rol del usuario */
+/* Solicitar datos del usuario */
 $id = $_SESSION['usuario_id'] ?? null;
-$rol = "SELECT rol FROM usuarios WHERE id=?";
-$sentencia = $conexion->prepare($rol);
+$datos = "SELECT rol, creado_en FROM usuarios WHERE id=?";
+$sentencia = $conexion->prepare($datos);
 $sentencia->bind_param("i", $id);
 $sentencia->execute();
 
 $resultado = $sentencia->get_result();
-$usuario_rol = $resultado->fetch_assoc();
+$usuario = $resultado->fetch_assoc();
 
-$nombre_usuario = $_SESSION["usuario_nombre"];
-$correo_usuario = $_SESSION["usuario_correo"];
+/* Convertir fecha a una mas simple */
+//Primero se crea el array
+$meses = [
+    "January" => "Enero",
+    "February" => "Febrero",
+    "March" => "Marzo",
+    "April" => "Abril",
+    "May" => "Mayo",
+    "June" => "Junio",
+    "July" => "Julio",
+    "August" => "Agosto",
+    "September" => "Septiembre",
+    "October" => "Octubre",
+    "November" => "Noviembre",
+    "December" => "Diciembre",
+];
 
-$consulta = $conexion->query(
-    "SELECT id, nombre, correo, creado_en, rol
-        FROM usuarios
-        ORDER BY id DESC"
-);
+//Crear el formato
+$fecha = $usuario["creado_en"]; //Declarar fecha
+$mesIngles = date("F", strtotime($fecha));
+$anio = date("Y", strtotime($fecha));
+
+$sentencia->close();
+
+/* Solicitar recetas del usuario */
+$sql_rec = 
+    "SELECT r.* , u.nombre AS nombre_usuario
+    FROM recetas r
+    INNER JOIN usuarios u ON r.id_usuario = u.id
+    WHERE r.id = ?";
+$sentencia_rec = $conexion->prepare($sql_rec);
+$sentencia_rec->bind_param("i", $id);
+if($sentencia_rec->execute()) {
+    $resultado_rec = $sentencia_rec->get_result();
+}
 ?>
 
 <!DOCTYPE html>
@@ -62,18 +89,36 @@ $consulta = $conexion->query(
     <?php require_once "includes/header.php"; ?>
     <!--Fin del header-->
     <?php require_once "includes/nav-pc.php"; ?>
-    <main class="main">
+    <main class="main main-perfil">
 
     <section class="info-perfil">
-        <h1>Bienvenido, <strong><?= htmlspecialchars($nombre_usuario) ?></strong></h1>
-        <p>(<?= htmlspecialchars($correo_usuario) ?>)</p>
+        <h1>Hola, <strong><?= htmlspecialchars($usuario_nombre) ?></strong>!</h1>
         <hr class="hr">
+        <div class="datos-perfil">
+            <p>Recetas creadas: 0</p>
+            <p>Calificación promedio: 0</p>
+            <p>Favoritos en en total: 0</p>
+        </div>
+        <hr class="hr">
+        <div>
+            <p>Miembro desde <?=htmlspecialchars($meses[$mesIngles])?> <?= htmlspecialchars($anio) ?> </p>
+        </div>
         <nav class="nav">
-            <a href="salir.php">Cerrar sesión</a>
-            <?php if($usuario_rol['rol']=='admin'):?>
-                <a href="admin.php">| Panel de administrador</a>
-            <?php endif;?>
         </nav>
+    </section>
+    <section class="seccion-recetas">
+        <nav class="btns-nav">
+            <button class="btn-perfil"><i class="ph ph-notepad"></i>Tus recetas</button>
+            <button class="btn-perfil"><i class="ph ph-heart"></i>Favoritos</button>
+            <button class="btn-perfil"><i class="ph ph-bookmark-simple"></i>Guardados</button>
+        </nav>
+        <section class="recetas">
+            <?php while($receta = $resultado_rec->fetch_assoc()): ?>
+                <p>A</p>
+                <p><?=htmlspecialchars($receta["nombre_usuario"])?></p>
+                <p><?=htmlspecialchars($receta["nombre"])?></p>
+            <?php endwhile; ?>
+        </section>
     </section>
 
     </main>

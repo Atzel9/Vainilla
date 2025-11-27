@@ -1,22 +1,27 @@
+.main-perfil {
+    display: flex;
+    flex-direction: row;
+    padding-top: 15px;
+}
 .info-perfil {
     display: flex;
-    margin: 10px auto;
+    margin: 10px 0;
     flex-direction: column;
-    width: 95%;
-    border: 2px solid var(--color_pri);
-    border-radius: 25px;
+    width: 45%;
+    border-radius: 6px;
     padding: 20px;
     box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
     -webkit-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
     -moz-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
 }
 .info-perfil h1 {
-    font-size: 1.2em;
+    margin: 30px;
+    font-size: 1.8em;
 }
 .hr {
     display: flex;
-    width: 95%;
-    margin: 10px auto;
+    width: 100%;
+    margin: 5px auto;
     border-radius: 2px;
     border: 2px solid var(--color_pri);
 }
