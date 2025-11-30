@@ -95,29 +95,35 @@ if($sentencia_rec->execute()) {
         <h1>Hola, <strong><?= htmlspecialchars($usuario_nombre) ?></strong>!</h1>
         <hr class="hr">
         <div class="datos-perfil">
-            <p>Recetas creadas: 0</p>
-            <p>Calificación promedio: 0</p>
-            <p>Favoritos en en total: 0</p>
+            <p>Recetas creadas: <?= htmlspecialchars($resultado_rec->num_rows) ?></p>
+            <p>Calificación promedio: N/A</p>
+            <p>Favoritos en en total: N/A</p>
         </div>
         <hr class="hr">
         <div>
-            <p>Miembro desde <?=htmlspecialchars($meses[$mesIngles])?> <?= htmlspecialchars($anio) ?> </p>
+            <p>Cuenta creada desde <?=htmlspecialchars($meses[$mesIngles])?> <?= htmlspecialchars($anio) ?> </p>
         </div>
         <nav class="nav">
         </nav>
     </section>
     <section class="seccion-recetas">
         <nav class="btns-nav">
-            <button class="btn-perfil"><i class="ph ph-notepad"></i>Tus recetas</button>
-            <button class="btn-perfil"><i class="ph ph-heart"></i>Favoritos</button>
-            <button class="btn-perfil"><i class="ph ph-bookmark-simple"></i>Guardados</button>
+            <button id="btn-receta" class="btn-perfil btn-activo"><i class="ph ph-notepad"></i>Tus recetas</button>
+            <button id="btn-favoritos" class="btn-perfil btn-inactivo"><i class="ph ph-heart"></i>Favoritos</button>
+            <button id="btn-guardados" class="btn-perfil btn-inactivo"><i class="ph ph-bookmark-simple"></i>Guardados</button>
         </nav>
         <section class="recetas">
-            <?php while($receta = $resultado_rec->fetch_assoc()): ?>
-                <p>A. prueba</p>
-                <p><?=htmlspecialchars($receta["nombre_usuario"])?></p>
-                <p><?=htmlspecialchars($receta["nombre"])?></p>
-            <?php endwhile; ?>
+            <?php if($resultado_rec && $resultado_rec->num_rows > 0): ?>
+                <?php while($receta = $resultado_rec->fetch_assoc()): ?>
+                    <p><?=htmlspecialchars($receta["nombre_usuario"])?></p>
+                    <p><?=htmlspecialchars($receta["nombre"])?></p>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="sin-receta">
+                    <h3>Sin recetas aún.</h3>
+                    <a href="crear.php">¡Escribe tu primera receta!</a>
+                </div>
+            <?php endif; ?>
         </section>
     </section>
 
@@ -126,5 +132,7 @@ if($sentencia_rec->execute()) {
     <?php require_once "includes/footer.php"; ?>
     <!--Fin Footer-->
     <?php require_once "includes/nav-mobil.php"; ?>
+
+    <script src="../js/perfil.js"></script>
 </body>
 </html>
