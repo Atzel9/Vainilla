@@ -7,6 +7,7 @@ if (!isset($_SESSION["usuario_id"])) {
 }
 
 /* Solicitar datos del usuario */
+$usuario_nombre = $_SESSION['usuario_nombre'] ?? null;
 $id = $_SESSION['usuario_id'] ?? null;
 $datos = "SELECT rol, creado_en FROM usuarios WHERE id=?";
 $sentencia = $conexion->prepare($datos);
@@ -58,7 +59,7 @@ if($sentencia_rec->execute()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vainilla: Lo dulce de la tradición</title>
+    <title><?=htmlspecialchars($usuario_nombre)?></title>
     <!--Icono de la página-->
     <link rel="icon" type="image/x-icon" href="../img/icono.png">
     <!--Link para ingresar a los estilos-->
@@ -87,7 +88,6 @@ if($sentencia_rec->execute()) {
 <body>
     <!--Inicio del header-->
     <?php require_once "includes/header.php"; ?>
-    <!--Fin del header-->
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main main-perfil">
 
