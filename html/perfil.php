@@ -113,10 +113,42 @@ if($sentencia_rec->execute()) {
             <button id="btn-guardados" class="btn-perfil btn-inactivo"><i class="ph ph-bookmark-simple"></i>Guardados</button>
         </nav>
         <section class="recetas">
+            <!--Inicio para crear las cards de las recetas creadas por el usuario-->
             <?php if($resultado_rec && $resultado_rec->num_rows > 0): ?>
                 <?php while($receta = $resultado_rec->fetch_assoc()): ?>
-                    <p><?=htmlspecialchars($receta["nombre_usuario"])?></p>
-                    <p><?=htmlspecialchars($receta["nombre"])?></p>
+                    <a href="receta.php?id=<?= htmlspecialchars($receta["id"]) ?>">
+                        <div class="cont-receta">
+                            <div class="img-receta">
+                                <img class="imagen-receta" src="../<?= htmlspecialchars($receta["imagen"]) ?>" alt="">
+                            </div>
+                            <div class="texto-receta">
+                                <div class="receta-titulo"><h2><?= htmlspecialchars($receta["nombre"]) ?></h2></div>
+                                <div class="receta-datos">
+                                    <div class="detalles">
+                                        <div class="tiempo">
+                                            <?php if($receta["tiempo"] > 60):?>
+                                                <!--Separar la horas de los minutos-->
+                                                <?php 
+                                                $horas = intval($receta["tiempo"] / 60);  
+                                                $minutos = $receta["tiempo"] % 60;
+                                                ?>
+                                                <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min</p>
+                                            <?php else: ?>
+                                                <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($receta["tiempo"])?> min</p>
+                                            <?php endif;?>
+                                        </div>
+                                        <div class="calificacion">
+                                            <p><i class="ph ph-star"></i>5.0</p>
+                                        </div>
+                                    </div>
+                                    <div class="estado">
+                                        <hr class="hr">
+                                        <p><?= htmlspecialchars($receta["estado"]) ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 <?php endwhile; ?>
             <?php else: ?>
                 <div class="sin-receta">

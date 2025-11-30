@@ -117,22 +117,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <!--Inicio del header-->
     <?php require_once "../includes/header.php" ?>
     <!--Fin del header-->
-    <main>
-        <h1>Editar usuario</h1>
-        <a href="../admin.php?seccion=usuarios"><i class="ph ph-caret-left"></i>Regresar a panel de administración</a>
+    <main class="main-ingrediente">
+        <a class="enlace-regresar" href="../admin.php?seccion=usuarios"><i class="ph ph-caret-left"></i>Regresar a panel de administración</a>
 
         <?php if ($mensaje !== ""): ?>
             <p class="mensaje"><?= htmlspecialchars($mensaje) ?></p>
         <?php endif; ?>
 
-        <p> <?=htmlspecialchars($usuario['id']) ?> </p>
+        <h2>Editar usuario</h2>
+        <h3 class="h3_ing"> ID #<?=htmlspecialchars($usuario['id']) ?> </h3>
+        <hr>
         <form method="post" action="usuario.php?id=<?= $usuario['id'] ?>" novalidate>
             <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" required maxlength="100"
+            <input id="nombre" class="input-ing" name="nombre" type="text" required maxlength="100"
                 value="<?= htmlspecialchars($usuario['nombre']) ?>">
 
             <label for="correo">Correo</label>
-            <input id="correo" name="correo" type="email" required maxlength="120"
+            <input id="correo" class="input-ing" name="correo" type="email" required maxlength="120"
                 value="<?= htmlspecialchars($usuario['correo']) ?>">
 
             <label for="rol">Rol</label>
@@ -140,17 +141,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <option value="user" <?=($usuario['rol'] === 'user') ? 'selected' : '' ?> >Usuario</option>
                 <option value="admin" <?= ($usuario['rol'] === 'admin' ) ? 'selected' : '' ?> >Admin</option>
             </select>
+            <hr>
 
             <label for="contrasena_nueva">Contraseña nueva (opcional)</label>
-            <input id="contrasena_nueva" name="contrasena_nueva" type="password" minlength="6"
+            <input id="contrasena_nueva" class="input-ing" name="contrasena_nueva" type="password" minlength="6"
                 placeholder="Déjalo vacío para no cambiarla">
 
 
-            <button type="submit">Guardar cambios</button>
+            <button class="editar-ing" type="submit">Guardar cambios</button>
         </form>
-        <form method="POST" action="eliminar_usuario.php">
+        <form class="botones-accion" method="POST" action="eliminar_usuario.php">
             <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
-            <button type="submit" onclick="return confirm('¿Estás seguro de eliminar el usuario?');">Eliminar usuario</button>
+            <button class="eliminar-ing" type="submit" onclick="return confirm('¿Estás seguro de eliminar el usuario?');">Eliminar usuario</button>
         </form>
     </main>
     <!--Inicio Footer-->

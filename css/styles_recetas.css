@@ -1,7 +1,6 @@
 .main-receta {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     width: 100%;
 }
 .opciones {
@@ -21,8 +20,26 @@
     z-index: 200;
     transition: all 0.5s ease;
 }
+/*Contenedor de advertencia*/
+.modal-pendiente {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    background-color: #FCD34E;
+    margin: 10px 0;
+    padding: 30px 25px;
+    border-radius: 10px;
+}
+.modal-pendiente p, .modal-pendiente i {
+    font-size: 1.2em;
+    color: #936A42;
+}
 .info-receta {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
     margin-right: auto;
+    width: 100%;
 }
 .div-img {
     height: 40vh;
@@ -38,6 +55,9 @@
     max-width: 100%;
     max-height: 100%;
 }
+.titulo-ing {
+    font-family: var(--alegraya);
+}
 .texto-info {
     display: flex;
     flex-direction: row;
@@ -47,6 +67,12 @@
 }
 .texto-info p {
     display: block;
+}
+.pasos {
+    margin: 15px 0;
+}
+.paso-receta {
+    margin: 20px 0;
 }
 /*ESTILO VENTANA MODAL*/
 .modal-receta {

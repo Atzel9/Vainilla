@@ -42,9 +42,16 @@ if ($id_receta !== 0) {
         } else {
             header("Location: acciones/error?error=datos");
         }
-        //Saber el estado de la receta para poner de uso público o solo para admins
-        if($receta["estado"] === 'pendiente') {
+        //Saber el estado de la receta para poner de uso público o solo admins y autor de la receta
+        $id_usuario = $_SESSION['usuario_id'] ?? null;
+        if($id_usuario !== $receta["id_usuario"] && $receta["estado"] === 'pendiente') {
             require_once "acciones/require_admin.php";
+        } /* PRELIMINAR EN PRUEBA */ else if ($id_usuario === $receta["id_usuario"]) {
+            if($receta["estado"] === 'pendiente') {
+                $autor = 'pendiendte';
+            } else {
+                $autor = 'aprobado';
+            }
         }
     } else {
         header("Location: acciones/error.php?error=receta&tipo=ejecutar");
@@ -100,8 +107,16 @@ if ($id_receta !== 0) {
             <?php if($is_admin): ?>
                 <button id="btn-rec-admin"><i class="ph ph-sliders-horizontal"></i></button>
             <?php endif; ?>
+            <?php if($id_usuario === $receta["id_usuario"]): ?>
+                <button><i class="ph ph-pencil-simple-line"></i></button>
+            <?php endif; ?>
         </div>
         <section class="info-receta">
+            <?php if($receta["estado"] === 'pendiente' && $id_usuario === $receta["id_usuario"]): ?>
+                <div class="modal-pendiente">
+                    <i class="ph ph-warning"></i><p>Tu receta aún necesita ser aprobada.</p>
+                </div>
+            <?php endif; ?>
             <div class="div-img">
                 <img src="../<?=htmlspecialchars($receta["imagen"])?>" alt="imagen de la receta">
             </div>
@@ -122,6 +137,7 @@ if ($id_receta !== 0) {
                     <p> <i class="ph ph-star"></i>5.0 </p>
                 </div>
                 <div class="ingredientes">
+                    <h2 class="titulo-ing">Lista de ingredientes</h2>
                     <ul class="lista-ingredientes">
                         <?php while($ingrediente = $resultado_ing->fetch_assoc()): ?>
                             <li class="info ingrediente">
@@ -135,9 +151,11 @@ if ($id_receta !== 0) {
                     </ul>
                 </div>
                 <div class="pasos">
+                    <h2 class="titulo-ing">¡Hora de cocinar!</h2>
                     <ul class="lista-pasos">
                         <?php while($pasos = $resultado_pasos->fetch_assoc()): ?>
-                            <li>
+                            <li class="paso-receta">
+                                <h3>Paso:</h3>
                                 <p><?=htmlspecialchars($pasos["texto"])?></p>
                             </li>
                         <?php endwhile; ?>
@@ -164,7 +182,11 @@ if ($id_receta !== 0) {
 
                     <?php if($receta["estado"] === "pendiente"): ?>
                         <div class="btns-admin">
-                            <button>Aceptar</button><button>Rechazar</button>
+                            <form action="receta-admin.php">
+                                <input type="hidden">
+                                <button type="submit">Aceptar</button>
+                                <button type="submit">Rechazar</button>
+                            </form>
                         </div>
                     <?php else: ?>
                         <button>Eliminar receta</button>
