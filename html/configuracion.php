@@ -1,3 +1,23 @@
+<?php
+//Conectar a la base de datos
+require_once "../conexion.php";
+
+if(!isset($_SESSION['usuario_id'])) {
+    header("Location: iniciar_sesion.php");
+    exit;
+}
+
+/* OBTENER DATOS DEL USUARIO */
+$id_perfil = $_SESSION['usuario_id'] ?? null;
+$senten_usu = $conexion->prepare("SELECT nombre, correo FROM usuarios WHERE id = ?");
+$senten_usu->bind_param("i", $id_perfil);
+
+if($senten_usu->execute()) {
+    $resultado_datos = $senten_usu->get_result();
+    $usuario = $resultado_datos->fetch_assoc();
+}
+$senten_usu->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,14 +55,30 @@
     <main class="main main-conf">
         <section class="opciones">
             <ul class="lista-opciones">
-                <li class="li-opc"><p>Editar perfil</p></li>
-                <hr>
+                <li class="li-opc"><button type="button">Editar perfil</button></li>
+                <hr class="hr">
                 <li class="li-opc btn-sesion"><a href="acciones/cerrar-sesion.php">Cerrar Sesión</a></li>
             </ul>
         </section>
         <section class="informacion">
             <div class="div-config div-cuenta">
-                
+                <form action="acciones/editar-usuario.php">
+                    <label for="nombre">Nombre</label>
+                    <input id="nombre" class="input-ing" name="nombre" type="text" required maxlength="100"
+                        value="<?= htmlspecialchars($usuario['nombre']) ?>">
+
+                    <label for="correo">Correo</label>
+                    <input id="correo" class="input-ing" name="correo" type="email" required maxlength="120"
+                        value="<?= htmlspecialchars($usuario['correo']) ?>">
+                    <hr>
+
+                    <label for="contrasena_nueva">Contraseña nueva (opcional)</label>
+                    <input id="contrasena_nueva" class="input-ing" name="contrasena_nueva" type="password" minlength="6"
+                        placeholder="Déjalo vacío para no cambiarla">
+
+
+                    <button class="editar-ing" type="submit">Guardar cambios</button>
+                </form>
             </div>
         </section>
     </main>
