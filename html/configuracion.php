@@ -74,7 +74,7 @@ if (isset($_SESSION["mensaje_con"])) {
                         <p><?= htmlspecialchars($mensaje) ?></p>
                     <?php endif; ?>
                 </div>
-                <form action="acciones/editar-usuario.php">
+                <form method="POST" action="acciones/editar-usuario.php">
                     <label for="nombre">Nombre</label>
                     <input id="nombre" class="input-ing" name="nombre" type="text" required maxlength="100"
                         value="<?= htmlspecialchars($usuario['nombre']) ?>">
