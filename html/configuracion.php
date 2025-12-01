@@ -17,6 +17,13 @@ if($senten_usu->execute()) {
     $usuario = $resultado_datos->fetch_assoc();
 }
 $senten_usu->close();
+
+$mensaje = "";
+
+if (isset($_SESSION["mensaje_con"])) {
+    $mensaje = $_SESSION["mensaje_con"];
+    unset($_SESSION["mensaje_con"]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +69,11 @@ $senten_usu->close();
         </section>
         <section class="informacion">
             <div class="div-config div-cuenta">
+                <div class="mensaje">
+                    <?php if($mensaje !== ""): ?>
+                        <p><?= htmlspecialchars($mensaje) ?></p>
+                    <?php endif; ?>
+                </div>
                 <form action="acciones/editar-usuario.php">
                     <label for="nombre">Nombre</label>
                     <input id="nombre" class="input-ing" name="nombre" type="text" required maxlength="100"
