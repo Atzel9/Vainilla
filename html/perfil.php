@@ -64,7 +64,7 @@ if($sentencia_rec->execute()) {
     <link rel="icon" type="image/x-icon" href="../img/icono.png">
     <!--Link para ingresar a los estilos-->
     <link rel="stylesheet" href="../css/styles.css?v=1.2">
-    <link rel="stylesheet" href="../css/styles_perfil.css">
+    <link rel="stylesheet" href="../css/styles_usuarios.css">
     <!--Acceso a google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

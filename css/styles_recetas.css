@@ -1,24 +1,64 @@
 .main-receta {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     width: 100%;
+    padding-left: 20px;
 }
-.opciones {
+.info-fixed {
     position: fixed;
     display: flex;
-    width: 200px;
+    flex-direction: column;
+    width: 175px;
     margin-top: 10px;
+    margin-left: auto;
     padding: 16px 8px;
-    justify-content: space-around;
-    background: rgb(254, 223, 119, 0.80);
+    justify-content: space-around;;
     border-radius: 33px;
-    backdrop-filter: blur(5px);
-    box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 2px 15px -5px rgba(0,0,0,0.75);
+    background-color: var(--fondo);
+    border: 2px solid var(--color_pri);
     border-radius: 26px;
     z-index: 200;
     transition: all 0.5s ease;
+}
+.opciones {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.opciones hr {
+    width: 90%;
+    margin: 10px auto;
+    border-radius: 5px;
+    border: 1px solid var(--color_pri);
+}
+.info-fixed .opciones button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.info-fixed .opciones button i {
+    font-size: 1.5em;
+}
+/*Estilo para cuando el usuario no haya iniciado sesion*/
+.opciones-sin {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 15px 10px;
+    text-align: center;
+}
+.opciones-sin a {
+    display: block;
+    width: 50%;
+    background-color: var(--color_pri);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 15px;
+    transition: color 0.3s ease;
+}
+.opciones-sin a:hover {
+    color: var(--cornsilk);
 }
 /*Contenedor de advertencia*/
 .modal-pendiente {
@@ -38,12 +78,13 @@
     display: flex;
     flex-direction: column;
     justify-content: left;
-    margin-right: auto;
-    width: 100%;
+    margin-right: 435px;
 }
 .div-img {
+    position: absolute;
+    right: 0;
     height: 40vh;
-    width: 100%;
+    width: 1000px;
     overflow: hidden;
     position: relative;
 }
@@ -54,6 +95,8 @@
     transform: translate(-50%, -50%);
     max-width: 100%;
     max-height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
 }
 .titulo-ing {
     font-family: var(--alegraya);
@@ -62,11 +105,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 15px 5px;
-    width: 90%;
+    margin: 15px;
+    width: 40%;
 }
 .texto-info p {
     display: block;
+
 }
 .pasos {
     margin: 15px 0;
@@ -123,7 +167,7 @@
     .main-receta {
         flex-direction: column;
     }
-    .opciones {
+    .info-fixed {
         position: sticky;
         top: 10px;
         width: 400px;
@@ -136,9 +180,11 @@
     .main-receta {
         padding-left: 110px;
     }
-    .opciones {
+    .info-fixed {
+        position: fixed;
         top: 133px;
         margin-top: 20px;
+        right: 20px;
     }
     .div-img {
         height: 70vh;
