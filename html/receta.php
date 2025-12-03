@@ -96,19 +96,32 @@ if ($id_receta !== 0) {
     <?php require_once "includes/header.php";?> 
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main-receta">
-        <div id="sentinela"></div>
-        <div class="opciones">
-            <a href="#"><i class="ph ph-caret-left"></i></a>
-            <button><i class="ph ph-heart"></i></button>
-            <button><i class="ph ph-bookmark-simple"></i></button>
-            <button><i class="ph ph-star"></i></button>
-            <button><i class="ph ph-user-plus"></i></button>
-            <button><i class="ph ph-share-fat"></i></button>
-            <?php if($is_admin): ?>
-                <button id="btn-rec-admin"><i class="ph ph-sliders-horizontal"></i></button>
-            <?php endif; ?>
-            <?php if($id_usuario === $receta["id_usuario"]): ?>
-                <button><i class="ph ph-pencil-simple-line"></i></button>
+        <div class="info-fixed">
+            <?php if(isset($_SESSION["usuario_id"])): ?>
+                <div class="opciones">
+                    <button><i class="ph ph-heart"></i><p>Favorito</p></button>
+                    <button><i class="ph ph-bookmark-simple"></i><p>Guardar</p></button>
+                    <?php if($id_usuario !== $receta["id_usuario"]): ?>
+                        <button><i class="ph ph-star"></i><p>Calificar</p></button>
+                        <button><i class="ph ph-user-plus"></i><p>Seguir</p></button>
+                    <?php endif; ?>
+                    <button><i class="ph ph-share-fat"></i><p>Compartir</p></button>
+                    <?php if($is_admin || $id_usuario === $receta["id_usuario"]): ?>
+                        <hr>
+                    <?php endif; ?>
+                    <?php if($is_admin): ?>
+                        <button id="btn-rec-admin"><i class="ph ph-sliders-horizontal"></i><p>Opc. de admin.</p></button>
+                    <?php endif; ?>
+                    <?php if($id_usuario === $receta["id_usuario"]): ?>
+                        <button><i class="ph ph-pencil-simple-line"></i><p>Editar</p></button>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <div class="opciones-sin">
+                    <p>Inicia sesión o crea un cuenta gratis para que puedas guardar la receta, calificar y seguir al usuario.</p>
+                    <a href="iniciar_sesion.php">Iniciar sesión</a>
+                    <a href="registrar-php">Registrarse</a>
+                </div>
             <?php endif; ?>
         </div>
         <section class="info-receta">
@@ -122,16 +135,16 @@ if ($id_receta !== 0) {
             </div>
             <div class="texto-receta">
                 <div class="texto-info">
-                    <p>Por:<a href="usuario.php?id=<?=htmlspecialchars($receta["id_usuario"])?>">@<?=htmlspecialchars($receta["nombre_usuario"])?></a></p>
+                    <p>Por:<a href="ver-usuario.php?id=<?=htmlspecialchars($receta["id_usuario"])?>">@<?=htmlspecialchars($receta["nombre_usuario"])?></a></p>
                     <p>Tiempo: <?php if($receta["tiempo"] > 60):?>
                         <!--Separar la horas de los minutos-->
                         <?php 
                         $horas = intval($receta["tiempo"] / 60);  
                         $minutos = $receta["tiempo"] % 60;
                         ?>
-                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min</p>
+                        <i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min
                         <?php else: ?>
-                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($receta["tiempo"])?> min</p>
+                        <i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($receta["tiempo"])?> min
                         <?php endif;?>
                     </p>
                     <p> <i class="ph ph-star"></i>5.0 </p>
