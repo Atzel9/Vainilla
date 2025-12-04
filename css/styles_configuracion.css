@@ -1,0 +1,21 @@
+.main-conf {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 30px;
+}
+.opciones {
+    position: sticky;
+    top: 0;
+    padding: 15px 10px;
+    height: 75vh;
+    width: 15%;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    box-shadow: 10px 5px 15px -3px rgba(0,0,0,0.1);
+}
+.informacion {
+    min-height: 75vh;
+    width: 75%;
+    margin-left: 15px;
+}

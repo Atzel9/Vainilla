@@ -59,7 +59,7 @@ if (isset($_SESSION["mensaje_con"])) {
 <body>
     <?php require_once "includes/header.php"; ?>
     <?php require_once "includes/nav-pc.php"; ?>
-    <main class="main main-conf">
+    <main class="main-conf main">
         <section class="opciones">
             <ul class="lista-opciones">
                 <li class="li-opc"><button type="button">Editar perfil</button></li>

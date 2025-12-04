@@ -1,6 +1,56 @@
 <?php
 require_once "../conexion.php";
 
+/* Solicitar datos del usuario */
+$id_perfil = $_GET['id'] ?? null;
+
+if($id_perfil == $_SESSION['usuario_id']) {
+    header("Location: perfil.php");
+    exit;
+}
+$datos = "SELECT nombre, creado_en FROM usuarios WHERE id=?";
+$sentencia = $conexion->prepare($datos);
+$sentencia->bind_param("i", $id_perfil);
+$sentencia->execute();
+
+$resultado = $sentencia->get_result();
+$usuario = $resultado->fetch_assoc();
+
+/* Convertir fecha a una mas simple */
+//Primero se crea el array
+$meses = [
+    "January" => "Enero",
+    "February" => "Febrero",
+    "March" => "Marzo",
+    "April" => "Abril",
+    "May" => "Mayo",
+    "June" => "Junio",
+    "July" => "Julio",
+    "August" => "Agosto",
+    "September" => "Septiembre",
+    "October" => "Octubre",
+    "November" => "Noviembre",
+    "December" => "Diciembre",
+];
+
+//Crear el formato
+$fecha = $usuario["creado_en"]; //Declarar fecha
+$mesIngles = date("F", strtotime($fecha));
+$anio = date("Y", strtotime($fecha));
+
+$sentencia->close();
+
+/* Solicitar recetas del usuario */
+$sql_rec = 
+    "SELECT r.* , u.nombre AS nombre_usuario
+    FROM recetas r
+    INNER JOIN usuarios u ON r.id_usuario = u.id
+    WHERE r.id_usuario = ?";
+$sentencia_rec = $conexion->prepare($sql_rec);
+$sentencia_rec->bind_param("i", $id_perfil);
+if($sentencia_rec->execute()) {
+    $resultado_rec = $sentencia_rec->get_result();
+}
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +58,7 @@ require_once "../conexion.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?=htmlspecialchars($usuario_nombre)?></title>
+    <title><?=$usuario["nombre"] ?></title>
     <!--Icono de la página-->
     <link rel="icon" type="image/x-icon" href="../img/icono.png">
     <!--Link para ingresar a los estilos-->
@@ -41,7 +91,7 @@ require_once "../conexion.php";
     <main class="main main-perfil">
 
     <section class="info-perfil">
-        <h1>Hola, <strong><?= htmlspecialchars($usuario_nombre) ?></strong>!</h1>
+        <h1><strong><?= htmlspecialchars($usuario["nombre"]) ?></strong></h1>
         <hr class="hr">
         <div class="datos-perfil">
             <p>Recetas creadas: <?= htmlspecialchars($resultado_rec->num_rows) ?></p>
@@ -57,9 +107,7 @@ require_once "../conexion.php";
     </section>
     <section class="seccion-recetas">
         <nav class="btns-nav">
-            <button id="btn-receta" class="btn-perfil btn-activo"><i class="ph ph-notepad"></i>Tus recetas</button>
-            <button id="btn-favoritos" class="btn-perfil btn-inactivo"><i class="ph ph-heart"></i>Favoritos</button>
-            <button id="btn-guardados" class="btn-perfil btn-inactivo"><i class="ph ph-bookmark-simple"></i>Guardados</button>
+            <button id="btn-receta" class="btn-perfil btn-activo"><i class="ph ph-notepad"></i>Recetas de <?= htmlspecialchars($usuario["nombre"]) ?> </button>
         </nav>
         <section class="recetas">
             <!--Inicio para crear las cards de las recetas creadas por el usuario-->
@@ -101,8 +149,7 @@ require_once "../conexion.php";
                 <?php endwhile; ?>
             <?php else: ?>
                 <div class="sin-receta">
-                    <h3>Sin recetas aún.</h3>
-                    <a href="crear.php">¡Escribe tu primera receta!</a>
+                    <h3>Este usuario no tiene recetas.</h3>
                 </div>
             <?php endif; ?>
         </section>
