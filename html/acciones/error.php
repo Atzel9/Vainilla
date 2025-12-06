@@ -56,6 +56,9 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                 <p>Error el ejecutar la receta.</p>
                 <a href="../../index.php" class="regresar">Regresar a página principal</a>
             <?php endif; ?>
+        <?php elseif($error = "perfil"): ?>
+            <p>Esta cuenta no existe.</p>
+            <a href="../../index.php" class="regresar">Regresar a página principal</a>
         <?php endif;?>
     </main>
     <?php require_once "../includes/footer.php" ?>
