@@ -121,7 +121,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
             </div>
         </div>
         <div class="resultado">
-            <h2 id="titulo-busqueda">Buscar recetas</h2>
+            <h2 id="titulo-busqueda">Buscar recetas...</h2>
             <p id="parrafo-busqueda"><?= htmlspecialchars($total_recetas) ?>  recetas disponibles.</p>
         </div>
     </main>
