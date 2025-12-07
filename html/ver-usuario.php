@@ -3,9 +3,11 @@ require_once "../conexion.php";
 
 /* Solicitar datos del usuario */
 $id_perfil = $_GET['id'] ?? null;
+$id_usuario = $_SESSION['usuario_id'] ?? null;
 
-if($id_perfil == $_SESSION['usuario_id']) {
-    header("Location: perfil.php");
+//Verificar si el usuario tiene el mismo ID
+if($id_perfil == $id_usuario) {
+    header("Location: perfil.php?prueba=$id_perfil");
     exit;
 }
 $datos = "SELECT nombre, creado_en FROM usuarios WHERE id=?";
@@ -14,6 +16,11 @@ $sentencia->bind_param("i", $id_perfil);
 $sentencia->execute();
 
 $resultado = $sentencia->get_result();
+if($resultado->num_rows <= 0) {
+    header("Location: acciones/error.php?error=cuenta");
+    exit;
+}
+
 $usuario = $resultado->fetch_assoc();
 
 /* Convertir fecha a una mas simple */

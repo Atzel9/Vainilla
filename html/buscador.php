@@ -1,6 +1,19 @@
 <?php
 require_once "../conexion.php";
 
+/* Solicitar número de recetas */
+$aprobada = 'aprobada';
+$sentencia_recetas = $conexion->prepare("SELECT COUNT(*) AS recetas FROM recetas WHERE estado = ? ");
+$sentencia_recetas->bind_param("s", $aprobada);
+$sentencia_recetas->execute();
+
+$resultado_rec = $sentencia_recetas->get_result();
+$recetas = $resultado_rec->fetch_assoc();
+$total_recetas = $recetas["recetas"];
+
+/* Solicitar lista de ingredientes */
+$sql_ing = $conexion->query("SELECT * FROM ingredientes ORDER BY nombre ASC"); //Ordenar la lista de manera alfabetica de "a" a "z"
+
 $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
 ?>
 <!DOCTYPE html>
@@ -38,13 +51,44 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <!--Inicio del header-->
     <?php require_once "includes/header.php"; ?>
     <!--Fin del header-->
-    <main class="main">
+    <?php require_once "includes/nav-pc.php"; ?>
+    <main class="main main-buscador">
         <div class="div-buscador">
-            <form action="">
+            <form id="form-busqueda" action="">
                 <input class="buscador" type="text" name="buscar" placeholder="Buscar recetas...">
                 <input class="input-buscar" type="submit" value="Buscar">
+                <input id="tipo" type="hidden" name="receta">
             </form>
+            <div class="contenedor-filtros">
+                <div class="btns-filtro">
+                    <button id="receta" class="btn-tipo-activado btn"><i class="ph ph-notepad"></i>Recetas</button>
+                    <button id="usuario" class="btn-tipo-desactivado btn"><i class="ph ph-users"></i>Usuarios</button>
+                </div>
+            </div>
+            <div id="ingrediente" class="ingredientes">
+                <button id="selec-ing" class="btn-agregar">Agregar Ingrediente</button>
+                <!--Lista de ingredientes-->
+                <div id="lis-rec" class="lis-rec lista-desactiva">
+                    <div class="div-rec-buscador">
+                        <input id="buscador-ingrediente" type="text" placeholder="Buscar ingrediente...">
+                    </div>
+                    <div class="contenedor-lista-ing">
+                        <?php while($fila_ing = $sql_ing->fetch_assoc()):?>
+                            <div class="lista-ing" data-id="<?=htmlspecialchars($fila_ing['id'])?>" data-nombre=" <?=htmlspecialchars($fila_ing['nombre'])?> ">
+                                <span class="nombre-ingrediente"><?=htmlspecialchars($fila_ing['nombre'])?></span>
+                                <button class="agregar-ingrediente" type="button"><i class="ph ph-plus"></i></button>
+                            </div>
+                        <?php endwhile;?>
+                    </div>
+                </div>
+                <!--Ingredientes agregados-->
+                <div id="ingredientes-selec" class="ingredientes-selec">
+
+                </div>
+            </div>
+
             <button class="filtros"><i class="bi bi-sliders"></i></button>
+            <!--PRELIMINAR-->
             <div class="fondo">
                     <div class="ventana-filtro">
                     <div class="cerrar"><i class="ph ph-x"></i></div>
@@ -76,15 +120,18 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                 </div>
             </div>
         </div>
+        <div class="resultado">
+            <h2 id="titulo-busqueda">Buscar recetas</h2>
+            <p id="parrafo-busqueda"><?= htmlspecialchars($total_recetas) ?>  recetas disponibles.</p>
+        </div>
     </main>
     <!--Inicio Footer-->
     <!--Inicio Footer-->
     <?php require_once "includes/footer.php" ?>
     <!--Fin Footer-->
     <?php require_once "includes/nav-mobil.php"; ?>
-    <!--Acceder al Javascript-->
-    <script type="text/Javascript"></script>
     <!-- Acceso a javascript-->
     <script src="../js/app.js"></script>
+    <script src="../js/buscador.js"></script>
 </body>
 </html>
