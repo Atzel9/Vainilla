@@ -54,10 +54,10 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <?php require_once "includes/nav-pc.php"; ?>
     <main class="main main-buscador">
         <div class="div-buscador">
-            <form id="form-busqueda" action="">
+            <form id="form-busqueda">
                 <input class="buscador" type="text" name="buscar" placeholder="Buscar recetas...">
                 <input class="input-buscar" type="submit" value="Buscar">
-                <input id="tipo" type="hidden" name="receta">
+                <input id="tipo" type="hidden" name="tipo" value="receta">
             </form>
             <div class="contenedor-filtros">
                 <div class="btns-filtro">
@@ -120,7 +120,7 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
                 </div>
             </div>
         </div>
-        <div class="resultado">
+        <div id="resultado" class="resultado">
             <h2 id="titulo-busqueda">Buscar recetas...</h2>
             <p id="parrafo-busqueda"><?= htmlspecialchars($total_recetas) ?>  recetas disponibles.</p>
         </div>

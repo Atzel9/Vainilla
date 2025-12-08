@@ -38,11 +38,11 @@ btnsFiltro.forEach(boton => {
 
         //Cambiar el input y contenedor de resultado
         if(id === 'usuario') {
-            input.name = 'usuario';
+            input.value = 'usuario';
             titulo.textContent = "Buscar usuario...";
             parrafo.style.display = "none";
         } else if (id=== 'receta') {
-            input.name = 'receta';
+            input.value = 'receta';
             titulo.textContent = "Buscar recetas...";
             parrafo.style.display = "";
         }
@@ -133,8 +133,8 @@ function seleccionarIngrediente (id, name) {
     const inputIng = document.createElement("input");
     inputIng.type = "hidden";
     inputIng.name = "ingrediente[]";
-    input.form = "form-busqueda";
-    input.value = id;
+    inputIng.setAttribute("form", "form-busqueda");
+    inputIng.value = id;
 
     //Botón eliminar ingrediente
     const btnCerrar = document.createElement("button");
@@ -176,4 +176,35 @@ nuevoIngrediente.forEach(boton => {
         //Ocultarlo de la lista
         datosIng.style.display = "none";
     });
+});
+
+
+/* ---- METODO AJAX ---- */
+//Obtener formulario
+const formulario = document.querySelector("#form-busqueda");
+const divResultado = document.querySelector("#resultado")
+
+formulario.addEventListener('submit', async (e) => {
+    //Evitar que el formulario se envíe y recargue la página
+    e.preventDefault();
+
+    //Obtener datos del formulario
+    const datos = new FormData(formulario);
+
+    try {
+        const respuesta = await fetch('acciones/buscar.php', {
+            method: 'POST',
+            body: datos
+        });
+        if(!respuesta.ok) {
+            const errorMensaje = await respuesta.text();
+            throw new Error(errorMensaje);
+        }
+        const resultado = await respuesta.text();
+        divResultado.innerHTML = "";
+        divResultado.innerHTML = resultado;
+    } catch (error) {
+        console.log("Error: ", error.message);
+        divResultado.innerHTML = `<p>Hubo un error en hacer la busqueda</p>`;
+    }
 });
