@@ -39,7 +39,7 @@ btnsFiltro.forEach(boton => {
         //Cambiar el input y contenedor de resultado
         if(id === 'usuario') {
             input.value = 'usuario';
-            titulo.textContent = "Buscar usuario...";
+            titulo.textContent = "Buscar usuarios...";
             parrafo.style.display = "none";
         } else if (id=== 'receta') {
             input.value = 'receta';
@@ -201,7 +201,6 @@ formulario.addEventListener('submit', async (e) => {
             throw new Error(errorMensaje);
         }
         const resultado = await respuesta.text();
-        divResultado.innerHTML = "";
         divResultado.innerHTML = resultado;
     } catch (error) {
         console.log("Error: ", error.message);

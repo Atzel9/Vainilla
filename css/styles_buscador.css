@@ -47,6 +47,10 @@
     width: 90px;
     background-color: var(--color_ter);
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.input-buscar:active {
+    transform: scale(0.9);
 }
 .filtros {
     background-color: var(--cornsilk);
