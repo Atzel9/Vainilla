@@ -86,39 +86,6 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
 
                 </div>
             </div>
-
-            <button class="filtros"><i class="bi bi-sliders"></i></button>
-            <!--PRELIMINAR-->
-            <div class="fondo">
-                    <div class="ventana-filtro">
-                    <div class="cerrar"><i class="ph ph-x"></i></div>
-                    <ul class="lista-filtros">
-                        <li class="li-postre">
-                            <button id="boton-tipo-postre">Elige el postre</button>
-                            <ul class="tipo-postre">
-                                <li class="postre">Postres horneados</li>
-                                <li class="postre">Postres fríos</li>
-                                <li class="postre">Postres helados</li>
-                                <li class="postre">Postres de cuchara</li>
-                                <li class="postre">Postres fritos</li>
-                                <li class="postre">Repostería con frutas</li>
-                                <li class="postre">Respotería con masa hojaldre</li>
-                                <li class="postre">Dulces y confitería</li>
-                            </ul>
-                        </li>
-                        <li class="li-tiempo">
-                            <button id="boton-tiempo">Tiempo en específico</button>
-                            <ul class="lista-tiempo">
-                                <li class="tiempo">0-30min</li>
-                                <li class="tiempo">15-30min</li>
-                                <li class="tiempo">30-60min</li>
-                                <li class="tiempo">1-2h</li>
-                                <li class="tiempo">2h+</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
         <div id="resultado" class="resultado">
             <h2 id="titulo-busqueda">Buscar recetas...</h2>
@@ -131,6 +98,9 @@ $nombre_usuario = $_SESSION["usuario_nombre"] ?? null;
     <!--Fin Footer-->
     <?php require_once "includes/nav-mobil.php"; ?>
     <!-- Acceso a javascript-->
+    <script>
+        const TOTAL_RECETAS = <?= intval($total_recetas) ?>;
+    </script>
     <script src="../js/app.js"></script>
     <script src="../js/buscador.js"></script>
 </body>

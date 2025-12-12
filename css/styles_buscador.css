@@ -313,6 +313,115 @@
 .nav-movil-activo a {
     color: var(--cafe);
 }
+/* ESTILO A TARJETAS */
+.resultado {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: start;
+}
+.resultado a {
+    display: block;
+    width: calc(25% - 7.5px); 
+}
+.cont-receta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+    margin: 10px 0;
+    overflow: hidden;
+    list-style: none;
+    border-radius: 10px;
+    border: 1px solid var(--color_pri);
+    width: 100%;
+    /*Sombra a la tarjeta*/
+    box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -webkit-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    -moz-box-shadow: 3px 5px 5px 1px rgba(99,22,0,0.32);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+.cont-receta:hover {
+    transform: translateY(-5px) translateX(3px);
+    box-shadow: 6px 10px 8px 3px rgba(99,22,0,0.5);
+    -webkit-box-shadow: 6px 10px 8px 3px rgba(99,22,0,0.5);
+    -moz-box-shadow: 6px 10px 8px 3px rgba(99,22,0,0.5);
+}
+.cont-receta .img-receta {
+    width: 100%;
+    height: 60%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 2px;
+    position: relative;
+}
+.cont-receta .img-receta img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.cont-receta .texto-receta {
+    height: 40%;
+    padding: 10px 5px;
+}
+.texto-receta p {
+    margin: 10px 0;
+}
+.receta-titulo {
+    height: 30%;
+}
+.receta-titulo h2 {
+    font-family: var(--alegraya);
+    margin-bottom: 10px;
+}
+.receta-datos {
+    height: 70%;
+}
+.detalles {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.pildora-det {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 8px;
+    background-color: var(--color_pri);
+    border-radius: 12px;
+    gap: 8px;
+    white-space: nowrap;
+}
+.pildora-det p {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+/*FIN ESTILOS CARDS*/
+
+/*ESTILO CUANDO NO HAY RECETA*/
+.sin-receta {
+    display: flex;
+    margin: 15vh 0;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.sin-receta h3 {
+    font-family: var(--alegraya);
+}
+.sin-receta a {
+    display: block;
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
+    width: 200px;
+    background-color: var(--color_pri);
+}
 /*RESPONSIVO*/
 @media screen and (min-width: 768px) {
     .div-buscador form {

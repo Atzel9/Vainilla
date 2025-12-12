@@ -2,11 +2,12 @@
 
 //Obtener los dos botones
 const btnsFiltro = document.querySelectorAll(".btn");
+const contRes = document.getElementById("resultado");
 const input = document.getElementById("tipo");
 const titulo = document.getElementById("titulo-busqueda");
 const parrafo = document.getElementById("parrafo-busqueda");
 
-function Filtro(estado) {
+function Filtro(estado) { //Cambiar botón elegir ingrediente para que no este disponible
     const btn = document.querySelectorAll("#ingrediente button");
     const lisIng = document.getElementById("ingrediente");
 
@@ -20,10 +21,15 @@ function Filtro(estado) {
     }
 }
 
-//Evento click
+//Evento click para cambiar el tipo de busqueda de 'receta' -> 'usuario' y vicerversa
 btnsFiltro.forEach(boton => {
     //El usuario le da click
     boton.addEventListener('click', (e) => {
+        //Crear los contenedores
+        const titBus = document.createElement("h2");
+        titBus.id = "titulo-busqueda";
+        const parrBus = document.createElement("p");
+        parrBus.id = "parrafo-busqueda";
         //Dar clase inactivo a todos los botones y cambiar el tipo de busqueda
         btnsFiltro.forEach(b => {
             b.classList.add("btn-tipo-desactivado"); 
@@ -38,13 +44,17 @@ btnsFiltro.forEach(boton => {
 
         //Cambiar el input y contenedor de resultado
         if(id === 'usuario') {
+            contRes.innerHTML = '';
+            contRes.appendChild(titBus);
             input.value = 'usuario';
-            titulo.textContent = "Buscar usuarios...";
-            parrafo.style.display = "none";
+            titBus.textContent = "Buscar usuarios...";
         } else if (id=== 'receta') {
+            contRes.innerHTML = '';
+            contRes.appendChild(titBus);
+            contRes.appendChild(parrBus);
             input.value = 'receta';
-            titulo.textContent = "Buscar recetas...";
-            parrafo.style.display = "";
+            titBus.innerHTML = `Buscar recetas...`;
+            parrBus.innerHTML = `${TOTAL_RECETAS}  recetas disponibles.`;
         }
 
         Filtro(id);
