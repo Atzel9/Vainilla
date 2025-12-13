@@ -1,5 +1,6 @@
 <?php
 require_once "../../conexion.php";
+$html  = '';
 
 if($_SERVER["REQUEST_METHOD"] === 'POST') {
     $busqueda = trim($_POST["buscar"] ?? "");
@@ -171,7 +172,7 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
             }
             } else {
                 //Estructura final html por si ocurrio error
-                $html .= <<<HTML
+                $html = <<<HTML
                     <h2 id="titulo-busqueda">Ocurrio un error al buscar la receta.</h2>
                     <h3>Intente de nuevo mas tarde</h3>
                     HTML;
@@ -245,19 +246,62 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
                     }
                 echo $html;
             } else {
-                echo 'No se encontraron recetas';
+                $html = <<<HTML
+                    <h2 id="titulo-busqueda">No se encontraron recetas.</h2>
+                HTML;
             }
             } else {
                 //Estructura final html
-                $html .= <<<HTML
+                $html = <<<HTML
                     <h2 id="titulo-busqueda">Ocurrio un error al buscar la receta.</h2>
                     <h3>Intente de nuevo mas tarde</h3>
                     HTML;
                 echo $html;
             }
         }
-    } elseif ($tipo === 'usuario') {
-        if(empty($busqueda)) {
+    } elseif ($tipo === 'usuario') { #Lógica para la busqueda que es tipo usuario
+        if(!empty($busqueda)) {
+            $sql_usu = 
+            "SELECT u.*, COUNT(r.id) AS total_recetas
+            FROM usuarios u
+            LEFT JOIN recetas r ON u.id = r.id_usuario AND r.estado = 'aprobada'
+            WHERE u.nombre LIKE ?
+            GROUP BY u.id, u.nombre";
+            $sentencia_usuarios = $conexion->prepare($sql_usu);
+            $sentencia_usuarios->bind_param("s", $bus_sql);
+            if($sentencia_usuarios->execute()) {
+                $resultado_bus = $sentencia_usuarios->get_result();
+                if($resultado_bus->num_rows > 0) {
+                    while($usuario = $resultado_bus->fetch_assoc()) {
+                        $id_html = htmlspecialchars($usuario['id'], ENT_QUOTES, 'UTF-8');
+                        $nombre_html = htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8');
+                        $total_recetas_html = htmlspecialchars($usuario['total_recetas'], ENT_QUOTES, 'UTF-8');
+                        $html .= <<<HTML
+                            <a href>
+                                <div class="usuario-busqueda">
+                                    <p>$id_html</p>
+                                    <p>$nombre_html</p>
+                                    <p>Recetas creadas: $total_recetas_html</p>
+                                </div>
+                            </a>
+                        HTML;
+                    }
+                    echo $html;
+                } else { #No se encontraron usuarios
+                    $html = <<<HTML
+                        <h2 id='titulo-busqueda' >No se encontraron usuarios</h2>
+                    HTML;
+                    echo $html;
+                }
+            } else {
+                $html = <<<HTML
+                    <h2 id="titulo-busqueda">Ocurrio un error al buscar la receta.</h2>
+                    <h3>Intente de nuevo mas tarde</h3>
+                    HTML;
+                echo $html;
+            }
+        }
+        elseif(empty($busqueda)) {
             //Estructura html
             $html = <<<HTML
             <h2 id="titulo-busqueda">Buscar usuarios...</h2>
