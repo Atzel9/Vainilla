@@ -132,3 +132,9 @@
     width: 200px;
     background-color: var(--color_pri);
 }
+/*Estilos para los admins*/
+.h3-admin {
+    text-align: center;
+    font-family: var(--alegraya);
+    width: 100%;
+}

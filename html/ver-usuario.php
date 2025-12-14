@@ -2,12 +2,16 @@
 require_once "../conexion.php";
 
 /* Solicitar datos del usuario */
+#ID del usuario
 $id_perfil = $_GET['id'] ?? null;
+#ID del perfil que se quiere ver
 $id_usuario = $_SESSION['usuario_id'] ?? null;
+#Estado de la receta
+$estado = 'aprobada';
 
 //Verificar si el usuario tiene el mismo ID
 if($id_perfil == $id_usuario) {
-    header("Location: perfil.php?prueba=$id_perfil");
+    header("Location: perfil.php");
     exit;
 }
 $datos = "SELECT nombre, creado_en FROM usuarios WHERE id=?";
@@ -52,11 +56,40 @@ $sql_rec =
     "SELECT r.* , u.nombre AS nombre_usuario
     FROM recetas r
     INNER JOIN usuarios u ON r.id_usuario = u.id
-    WHERE r.id_usuario = ?";
+    WHERE r.id_usuario = ? AND r.estado = ? ";
 $sentencia_rec = $conexion->prepare($sql_rec);
-$sentencia_rec->bind_param("i", $id_perfil);
+$sentencia_rec->bind_param("is", $id_perfil, $estado);
 if($sentencia_rec->execute()) {
     $resultado_rec = $sentencia_rec->get_result();
+}
+
+/* EXCLUSIVO DE ADMINISTRADORES PARA MIRAR RECETAS PENDIENTES */
+$admin = false;
+
+if(isset($_SESSION['usuario_id'])) {
+    $consultaRol = $conexion->prepare("SELECT rol FROM usuarios WHERE id = ?");
+    $consultaRol->bind_param("i", $id_usuario);
+    $consultaRol->execute();
+    $resultadoRol = $consultaRol->get_result();
+    $pefil_rol = $resultadoRol->fetch_assoc();
+
+    if($pefil_rol['rol'] === 'admin') {
+        $admin = true;
+    }
+}
+
+if($admin) {
+    /* Solicitar recetas del usuario */
+    $sql_rec = 
+        "SELECT r.* , u.nombre AS nombre_usuario
+        FROM recetas r
+        INNER JOIN usuarios u ON r.id_usuario = u.id
+        WHERE r.id_usuario = ? AND r.estado != 'aprobada' ";
+    $sentencia_rec_admin = $conexion->prepare($sql_rec);
+    $sentencia_rec_admin->bind_param("i", $id_perfil);
+    if($sentencia_rec_admin->execute()) {
+        $resultado_rec_admin = $sentencia_rec_admin->get_result();
+    }
 }
 ?>
 
@@ -145,20 +178,75 @@ if($sentencia_rec->execute()) {
                                             <p><i class="ph ph-star"></i>5.0</p>
                                         </div>
                                     </div>
-                                    <div class="estado">
-                                        <hr class="hr">
-                                        <p><?= htmlspecialchars($receta["estado"]) ?></p>
-                                    </div>
+                                    <?php if($admin): ?>
+                                        <div class="estado">
+                                            <hr class="hr">
+                                            <p><?= htmlspecialchars($receta["estado"]) ?></p>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
                     </a>
                 <?php endwhile; ?>
             <?php else: ?>
-                <div class="sin-receta">
-                    <h3>Este usuario no tiene recetas.</h3>
-                </div>
+                <?php if($admin): ?>
+                    <div class="sin-receta">
+                        <h3>Este usuario no tiene recetas públicas.</h3>
+                    </div>
+                <?php else: ?>
+                    <div class="sin-receta">
+                        <h3>Este usuario no tiene recetas.</h3>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
+            <?php if($admin): ?>
+                <hr class="hr">
+                <h3 class="h3-admin">Administración</h3>
+                    <?php if($resultado_rec_admin->num_rows > 0):?>
+                        <?php while($receta_admin = $resultado_rec_admin->fetch_assoc()): ?>
+                            <a href="receta.php?id=<?= htmlspecialchars($receta_admin["id"]) ?>">
+                                <div class="cont-receta">
+                                    <div class="img-receta">
+                                        <img class="imagen-receta" src="../<?= htmlspecialchars($receta_admin["imagen"]) ?>" alt="">
+                                    </div>
+                                    <div class="texto-receta">
+                                        <div class="receta-titulo"><h2><?= htmlspecialchars($receta_admin["nombre"]) ?></h2></div>
+                                        <div class="receta-datos">
+                                            <div class="detalles">
+                                                <div class="tiempo">
+                                                    <?php if($receta_admin["tiempo"] > 60):?>
+                                                        <!--Separar la horas de los minutos-->
+                                                        <?php 
+                                                        $horas = intval($receta_admin["tiempo"] / 60);  
+                                                        $minutos = $receta_admin["tiempo"] % 60;
+                                                        ?>
+                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($horas)?>h <?=htmlspecialchars($minutos)?>min</p>
+                                                    <?php else: ?>
+                                                        <p><i class="ph ph-hourglass-simple"></i><?=htmlspecialchars($receta_admin["tiempo"])?> min</p>
+                                                    <?php endif;?>
+                                                </div>
+                                                <div class="calificacion">
+                                                    <p><i class="ph ph-star"></i>5.0</p>
+                                                </div>
+                                            </div>
+                                            <?php if($admin): ?>
+                                                <div class="estado">
+                                                    <hr class="hr">
+                                                    <p><?= htmlspecialchars($receta_admin["estado"]) ?></p>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        <?php endwhile; ?>
+                    <?php else:?>
+                        <div class="sin-receta">
+                            <h3>Este usuario no tiene recetas por revisar.</h3>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
         </section>
     </section>
 
