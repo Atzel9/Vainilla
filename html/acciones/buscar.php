@@ -277,11 +277,24 @@ if($_SERVER["REQUEST_METHOD"] === 'POST') {
                         $nombre_html = htmlspecialchars($usuario['nombre'], ENT_QUOTES, 'UTF-8');
                         $total_recetas_html = htmlspecialchars($usuario['total_recetas'], ENT_QUOTES, 'UTF-8');
                         $html .= <<<HTML
-                            <a href>
-                                <div class="usuario-busqueda">
-                                    <p>$id_html</p>
-                                    <p>$nombre_html</p>
-                                    <p>Recetas creadas: $total_recetas_html</p>
+                            <a href='ver-usuario.php?id={$id_html}'>
+                                <div class="usuarios-contenedor">
+                                    <div class="tarjeta-usuario">
+                                        <h2 class="usuario-nombre">@$nombre_html</h2>
+                                        <hr>
+                                        <p class="usuario-dato">
+                                            Recetas creadas: 
+                                            <span class="valor-dato">$total_recetas_html</span>
+                                        </p>
+                                        <p class="usuario-dato">
+                                            Calificación Promedio: 
+                                            <span class="valor-dato">N/A </span>
+                                        </p>
+                                        <p class="usuario-dato">
+                                            Favoritos: 
+                                            <span class="valor-dato">N/A </span>
+                                        </p>
+                                    </div>
                                 </div>
                             </a>
                         HTML;

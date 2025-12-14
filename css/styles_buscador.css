@@ -402,6 +402,62 @@
     gap: 3px;
 }
 /*FIN ESTILOS CARDS*/
+/*ESTILO COLUMNAS A USUARIOS*/
+
+.tarjeta-usuario {
+    background-color: var(--fondo);
+    border: 3px solid var(--color_pri);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    text-align: left;
+}
+.tarjeta-usuario:hover {
+    transform: translateY(-3px) translateX(1px);
+    box-shadow: 4px 4px 6px rgba(99,22,0,0.5);
+    -webkit-box-shadow: 4px 4px 6px rgba(99,22,0,0.5);
+    -moz-box-shadow: 4px 4px 6px rgba(99,22,0,0.5);
+}
+
+/* Estilo del nombre de usuario */
+.usuario-nombre {
+    font-size: 1.4em;
+    font-family: var(--alegraya);
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Línea divisoria */
+hr {
+    border: none;
+    border-top: 1px solid var(--color_pri);
+    margin: 10px 0;
+}
+
+/* Estilo de la línea de datos (Recetas, Calificación, etc.) */
+.usuario-dato {
+    font-size: 1em;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* Estilo del valor numérico (para resaltarlo) */
+.valor-dato {
+    font-weight: bold;
+    color: var(--marron_chocolate);
+}
+
+
+/* --- 3. Responsive (Se vuelve 1 columna en pantallas pequeñas) --- */
+@media (max-width: 768px) {
+    .usuarios-contenedor {
+        /* En pantallas pequeñas, solo muestra 1 columna */
+        grid-template-columns: 1fr;
+    }
+}
+/*FIN ESTILO USUARIOS*/
 
 /*ESTILO CUANDO NO HAY RECETA*/
 .sin-receta {
