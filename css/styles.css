@@ -58,10 +58,18 @@ ul {
     align-items: center;
     width: 100%;
 }
+.icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 /*Estilo al icono*/
 .icon img{
     width: 80px;
     height: auto;
+}
+#texto-logo {
+    width: 200px;
 }
 .div-buscador-header {
     display: flex;

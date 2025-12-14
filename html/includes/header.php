@@ -18,7 +18,10 @@ if(isset($_SESSION['usuario_id'])) {
 ?>
 <header id="header">
     <div class="div-inicio">
-        <a class="icon" href="/bootcamp/Vainilla/index.php"><img src="/bootcamp/Vainilla/img/icono.png" alt="Icono de Vainilla"></a>
+        <a class="icon" href="/bootcamp/Vainilla/index.php">
+            <img src="/bootcamp/Vainilla/img/icono.png" alt="Icono de Vainilla">
+            <img id="texto-logo" src="/bootcamp/Vainilla/img/texto_logo_png.png" alt="Vainilla">
+        </a>
     </div>
     <div class="div-buscador-header">
         <a href="/bootcamp/Vainilla/html/buscador.php" class="a-buscador"><i class="ph ph-magnifying-glass"></i>Buscar recetas...</a>
